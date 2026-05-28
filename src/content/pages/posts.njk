@@ -12,7 +12,6 @@ permalink: /posts/
   <li>
     <span class="post-date">{{ post.date | dateFormat("yyyy-MM-dd") }}</span>
     <a href="{{ post.url }}" class="post-title">{{ post.data.title }}</a>
-    <span class="post-category">{{ post.data.category or "随笔" }}</span>
   </li>
   {% endfor %}
 </ul>

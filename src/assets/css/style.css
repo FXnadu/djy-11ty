@@ -54,6 +54,11 @@ body {
   padding: 0 var(--sp-7);
 }
 
+main {
+  flex: 1;
+  width: 100%;
+}
+
 /* Typography */
 h1, h2, h3, h4 {
   font-weight: 200;
@@ -322,7 +327,6 @@ a:hover {
   gap: var(--sp-6);
   align-items: baseline;
   padding: var(--sp-6) 0;
-  border-bottom: 1px solid var(--grey-1);
 }
 
 .post-list .post-date {
@@ -330,6 +334,7 @@ a:hover {
   font-size: 0.75rem;
   color: var(--grey-3);
   letter-spacing: 0.04em;
+  line-height: 31px;
 }
 
 .post-list .post-title {
