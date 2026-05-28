@@ -166,6 +166,114 @@ a:hover {
   padding: var(--sp-11) 0 var(--sp-10);
 }
 
+/* Homepage split hero */
+.home-hero-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 80vh;
+  margin-bottom: var(--sp-10);
+}
+
+.split-left {
+  background: var(--paper);
+  color: var(--ink);
+  padding: var(--sp-10) var(--sp-8);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+}
+
+.split-left canvas.ascii-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  opacity: .4;
+}
+
+.split-left-content {
+  position: relative;
+  z-index: 1;
+}
+
+.split-left-footer {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: space-between;
+  padding-top: var(--sp-6);
+  border-top: 1px solid rgba(255,255,255,.22);
+}
+
+.split-right {
+  display: flex;
+  flex-direction: column;
+}
+
+.rules-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.rule-item {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--sp-7);
+  align-items: start;
+  padding: var(--sp-6) 0;
+  border-top: 1px solid var(--grey-2);
+}
+
+.rule-item.accent-bottom {
+  border-bottom: 2px solid var(--ink);
+}
+
+.rule-num {
+  font-family: var(--sans);
+  font-weight: 200;
+  font-size: min(4.4vw, 7.8vh);
+  line-height: .9;
+  color: var(--ink);
+}
+
+.rule-body h3 {
+  font-family: var(--sans);
+  font-weight: 400;
+  font-size: max(18px, 1.8vw);
+  line-height: 1.2;
+  letter-spacing: -.015em;
+  margin-bottom: var(--sp-3);
+}
+
+.rule-body p {
+  font-family: var(--sans);
+  font-size: max(12px, .92vw);
+  line-height: 1.6;
+  color: var(--grey-3);
+  font-weight: 300;
+}
+
+@media (max-width: 768px) {
+  .home-hero-split {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+
+  .split-left {
+    padding: var(--sp-8) var(--sp-6);
+    min-height: 50vh;
+  }
+
+  .split-right {
+    padding: var(--sp-8) var(--sp-6);
+  }
+}
+
 .hero h1 {
   margin-bottom: var(--sp-7);
 }

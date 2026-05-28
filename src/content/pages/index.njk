@@ -6,13 +6,21 @@ permalink: /
 {% extends "layouts/base.njk" %}
 
 {% block content %}
-<section class="hero">
-  <p class="t-meta" style="margin-bottom: var(--sp-5);">DJY · 个人站点</p>
-  <h1>{{ siteConfig.description }}</h1>
-  <p class="lead">基于 Eleventy 构建的静态站点，记录技术笔记与个人思考。</p>
+<section class="home-hero-split">
+  <div class="split-left">
+    <canvas class="ascii-bg" aria-hidden="true"></canvas>
+    <div class="split-left-content">
+      <div class="t-meta" style="color: var(--grey-3); margin-bottom: var(--sp-7);">DJY · PERSONAL SITE</div>
+      <h2 style="font-family: var(--sans); font-weight: 200; font-size: min(8vw, 14vh); line-height: .94; letter-spacing: -.025em; color: var(--ink);">dengjunyu</h2>
+      <p style="font-family: var(--sans); font-size: max(13px, 1vw); line-height: 1.6; color: var(--grey-3); font-weight: 300; max-width: 36ch; margin-top: var(--sp-6);">瑞士国际主义的核心：单一锚点色、极致字号对比、直角纯色、网格至上。</p>
+    </div>
+    <div class="split-left-footer t-meta" style="color: var(--grey-3);">
+      <span>DJY</span>
+      <span>2026</span>
+    </div>
+  </div>
+  <div class="split-right"></div>
 </section>
-
-<hr class="hr-hairline">
 
 <section class="section">
   <div class="section-header">
