@@ -44,6 +44,7 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  padding-top: calc(var(--sp-6) * 2 + 1.4rem);
 }
 
 /* Grid */
@@ -123,8 +124,18 @@ a:hover {
 
 /* Header */
 .site-header {
-  border-bottom: 1px solid var(--grey-2);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
   padding: var(--sp-6) 0;
+  background: var(--paper);
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.site-header.is-hidden {
+  transform: translateY(-100%);
 }
 
 .site-header .container {
@@ -169,26 +180,18 @@ a:hover {
   padding: var(--sp-11) 0 var(--sp-10);
 }
 
-/* Homepage split hero */
+/* Homepage hero — unified full-width container */
 .home-hero-split {
+  background: var(--paper);
   display: grid;
   grid-template-columns: 1fr 1fr;
   min-height: 80vh;
   margin-bottom: var(--sp-10);
-}
-
-.split-left {
-  background: var(--paper);
-  color: var(--ink);
-  padding: var(--sp-10) var(--sp-8);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
   position: relative;
   overflow: hidden;
 }
 
-.split-left canvas.ascii-bg {
+.home-hero-split canvas.ascii-bg {
   position: absolute;
   inset: 0;
   width: 100%;
@@ -196,6 +199,17 @@ a:hover {
   pointer-events: none;
   z-index: 0;
   opacity: .4;
+}
+
+.hero-content {
+  grid-column: 1;
+  color: var(--ink);
+  padding: var(--sp-10) var(--sp-8);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  z-index: 1;
 }
 
 .split-left-content {
@@ -210,11 +224,6 @@ a:hover {
   justify-content: space-between;
   padding-top: var(--sp-6);
   border-top: 1px solid rgba(255,255,255,.22);
-}
-
-.split-right {
-  display: flex;
-  flex-direction: column;
 }
 
 .rules-list {
@@ -264,16 +273,11 @@ a:hover {
 @media (max-width: 768px) {
   .home-hero-split {
     grid-template-columns: 1fr;
-    min-height: auto;
   }
 
-  .split-left {
+  .hero-content {
     padding: var(--sp-8) var(--sp-6);
     min-height: 50vh;
-  }
-
-  .split-right {
-    padding: var(--sp-8) var(--sp-6);
   }
 }
 
@@ -509,7 +513,7 @@ a:hover {
 
 /* Post sidebar */
 .post-sidebar {
-  padding-top: 161px;
+  padding-top: 170px;
 }
 
 /* Table of Contents */
