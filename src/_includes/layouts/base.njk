@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  {% include "partials/head.njk" %}
+</head>
+<body>
+  {% include "partials/site-header.njk" %}
+  <main class="container">
+    {% block content %}{% endblock %}
+  </main>
+  {% include "partials/site-footer.njk" %}
+</body>
+</html>

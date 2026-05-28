@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://djy.example.com/sitemap.xml
