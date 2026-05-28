@@ -2,5 +2,9 @@ module.exports = {
   title: "DJY",
   description: "DJY 静态站点 - 基于 Eleventy 构建",
   url: "https://djy.example.com",
-  language: "zh-CN"
+  language: "zh-CN",
+  footer: {
+    copyright: "DJY",
+    poweredBy: "基于 Eleventy 构建"
+  }
 };
