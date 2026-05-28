@@ -7,17 +7,24 @@ permalink: /
 
 {% block content %}
 <section class="hero">
-  <h1>{{ siteConfig.title }}</h1>
-  <p>{{ siteConfig.description }}</p>
+  <p class="t-meta" style="margin-bottom: var(--sp-5);">DJY · 个人站点</p>
+  <h1>{{ siteConfig.description }}</h1>
+  <p class="lead">基于 Eleventy 构建的静态站点，记录技术笔记与个人思考。</p>
 </section>
 
-<section class="recent-posts">
-  <h2>最新文章</h2>
-  <ul>
+<hr class="hr-hairline">
+
+<section class="section">
+  <div class="section-header">
+    <h2>最新文章</h2>
+    <span class="t-meta">Recent</span>
+  </div>
+  <ul class="post-list">
     {% for post in collections.posts | limit(5) %}
     <li>
-      <a href="{{ post.url }}">{{ post.data.title }}</a>
-      <time datetime="{{ post.date | dateISO }}">{{ post.date | dateFormat }}</time>
+      <span class="post-date">{{ post.date | dateFormat("yyyy-MM-dd") }}</span>
+      <a href="{{ post.url }}" class="post-title">{{ post.data.title }}</a>
+      <span class="post-category">{{ post.data.category or "随笔" }}</span>
     </li>
     {% endfor %}
   </ul>

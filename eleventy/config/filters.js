@@ -3,6 +3,7 @@ const { DateTime } = require("luxon");
 module.exports = {
   registerFilters(eleventyConfig) {
     eleventyConfig.addFilter("dateFormat", (date, format = "yyyy-MM-dd") => {
+      if (date === "now") return DateTime.now().toFormat(format);
       return DateTime.fromJSDate(date).toFormat(format);
     });
 
