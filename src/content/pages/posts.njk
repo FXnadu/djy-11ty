@@ -3,7 +3,7 @@ title: 文章列表
 permalink: /posts/{% if pagination.pageNumber > 0 %}{{ pagination.pageNumber + 1 }}/{% endif %}
 pagination:
   data: collections.posts
-  size: 10
+  size: 3
   alias: posts
 ---
 
@@ -20,19 +20,8 @@ pagination:
   {% endfor %}
 </ul>
 
-{% if pagination.pages | length > 1 %}
-<nav class="pagination" aria-label="分页">
-  {% if pagination.href.previous %}
-  <a href="{{ pagination.href.previous }}" class="pagination-link">← 上一页</a>
-  {% else %}
-  <span class="pagination-link is-disabled">← 上一页</span>
-  {% endif %}
-  <span class="pagination-info t-meta">{{ pagination.pageNumber + 1 }}&thinsp;/&thinsp;{{ pagination.pages | length }}</span>
-  {% if pagination.href.next %}
-  <a href="{{ pagination.href.next }}" class="pagination-link">下一页 →</a>
-  {% else %}
-  <span class="pagination-link is-disabled">下一页 →</span>
-  {% endif %}
-</nav>
-{% endif %}
+{% set pgCurrent = pagination.pageNumber %}
+{% set pgTotal = pagination.pages | length %}
+{% set pgBaseUrl = "/posts/" %}
+{% include "partials/pagination.njk" %}
 {% endblock %}

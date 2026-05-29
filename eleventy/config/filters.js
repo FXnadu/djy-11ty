@@ -23,6 +23,12 @@ module.exports = {
       return array.slice(0, limit);
     });
 
+    eleventyConfig.addFilter("paginateSlice", (array, pageNumber, pageSize) => {
+      if (!Array.isArray(array)) return [];
+      const start = pageNumber * pageSize;
+      return array.slice(start, start + pageSize);
+    });
+
     // Generate URL-safe slug for tags (supports Chinese characters)
     eleventyConfig.addFilter("tagSlug", (str) => {
       if (!str) return "";

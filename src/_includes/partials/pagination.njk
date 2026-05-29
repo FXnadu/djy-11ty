@@ -1,0 +1,68 @@
+{# Pagination with page selector popup
+   Usage:
+     {% set pgCurrent = 0 %}
+     {% set pgTotal = 2 %}
+     {% set pgBaseUrl = "/gene/生活/" %}
+     {% include "partials/pagination.njk" %}
+#}
+
+{% if pgTotal > 1 %}
+<nav class="pagination" aria-label="分页">
+  {# Previous #}
+  {% if pgCurrent > 0 %}
+  <a href="{{ pgBaseUrl }}{% if pgCurrent > 1 %}{{ pgCurrent }}/{% endif %}" class="pagination-link">← 上一页</a>
+  {% else %}
+  <span class="pagination-link is-disabled">← 上一页</span>
+  {% endif %}
+
+  {# Page selector popup #}
+  <div class="pagination-selector">
+    <button class="pagination-selector-btn t-meta" aria-label="选择页码" aria-expanded="false">
+      {{ pgCurrent + 1 }}/{{ pgTotal }}
+      <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 4l3 3 3-3"/></svg>
+    </button>
+    <div class="pagination-popup" hidden>
+      <div class="pagination-popup-grid">
+        {% for i in range(pgTotal) %}
+        <a href="{{ pgBaseUrl }}{% if i > 0 %}{{ i + 1 }}/{% endif %}" class="pagination-popup-page{% if i == pgCurrent %} is-current{% endif %}">{{ i + 1 }}</a>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+  {# Next #}
+  {% if pgCurrent < pgTotal - 1 %}
+  <a href="{{ pgBaseUrl }}{{ pgCurrent + 2 }}/" class="pagination-link">下一页 →</a>
+  {% else %}
+  <span class="pagination-link is-disabled">下一页 →</span>
+  {% endif %}
+</nav>
+
+<script>
+(function () {
+  var sel = document.currentScript.previousElementSibling.querySelector('.pagination-selector');
+  if (!sel) return;
+  var btn = sel.querySelector('.pagination-selector-btn');
+  var popup = sel.querySelector('.pagination-popup');
+  var backdrop = null;
+  function close() {
+    popup.hidden = true;
+    btn.setAttribute('aria-expanded', 'false');
+    if (backdrop) { backdrop.remove(); backdrop = null; }
+  }
+  btn.addEventListener('click', function (e) {
+    e.stopPropagation();
+    if (!popup.hidden) { close(); return; }
+    popup.hidden = false;
+    btn.setAttribute('aria-expanded', 'true');
+    backdrop = document.createElement('div');
+    backdrop.className = 'pagination-backdrop';
+    document.body.appendChild(backdrop);
+    backdrop.addEventListener('click', close);
+  });
+  popup.addEventListener('click', function (e) {
+    if (e.target.closest('a')) close();
+  });
+})();
+</script>
+{% endif %}

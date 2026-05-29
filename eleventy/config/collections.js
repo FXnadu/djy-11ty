@@ -54,10 +54,10 @@ module.exports = {
     });
 
     eleventyConfig.addCollection("tagPages", (collectionApi) => {
-      const pageSize = 10;
+      const pageSize = 3;
       const allPosts = getPosts(collectionApi);
       const tagCount = countPostTags(allPosts);
-      const pages = [];
+      const items = [];
 
       for (const [tag] of tagCount) {
         if (/^\d+$/.test(tag)) continue;
@@ -65,18 +65,17 @@ module.exports = {
           allPosts.filter((post) => (post.data.tags || []).includes(tag))
         );
         const totalPages = Math.ceil(posts.length / pageSize);
-
         for (let page = 0; page < totalPages; page++) {
-          pages.push({
+          items.push({
             tag,
-            page,
-            totalPages,
             total: posts.length,
+            totalPages,
+            page,
             posts: posts.slice(page * pageSize, (page + 1) * pageSize),
           });
         }
       }
-      return pages;
+      return items;
     });
 
     eleventyConfig.addCollection("yearList", (collectionApi) => {
@@ -86,6 +85,31 @@ module.exports = {
         if (year) yearSet.add(year);
       });
       return [...yearSet].sort((a, b) => b - a);
+    });
+
+    eleventyConfig.addCollection("yearPages", (collectionApi) => {
+      const pageSize = 3;
+      const map = new Map();
+      getPosts(collectionApi).forEach((item) => {
+        const year = new Date(item.date).getFullYear();
+        if (!map.has(year)) map.set(year, []);
+        map.get(year).push(item);
+      });
+      const items = [];
+      for (const [year, list] of map) {
+        const sorted = sortByNewest(list);
+        const totalPages = Math.ceil(sorted.length / pageSize);
+        for (let page = 0; page < totalPages; page++) {
+          items.push({
+            year,
+            total: sorted.length,
+            totalPages,
+            page,
+            posts: sorted.slice(page * pageSize, (page + 1) * pageSize),
+          });
+        }
+      }
+      return items.sort((a, b) => b.year - a.year || b.page - a.page);
     });
 
     eleventyConfig.addCollection("yearCollections", (collectionApi) => {

@@ -1,26 +1,30 @@
 ---
 pagination:
-  data: collections.yearList
+  data: collections.yearPages
   size: 1
-  alias: year
-permalink: /gene/{{ year }}/
+  alias: pageData
+permalink: /gene/{{ pageData.year }}/{% if pageData.page > 0 %}{{ pageData.page + 1 }}/{% endif %}
 ---
 
 {% extends "layouts/base.njk" %}
 
 {% block content %}
 <div class="gene-header">
-  <h1 class="gene-title">{{ year }}</h1>
-  {% set yearPosts = collections.yearCollections.get(year) %}
-  <p class="gene-count t-meta">{{ yearPosts | length }} 篇文章</p>
+  <h1 class="gene-title">{{ pageData.year }}</h1>
+  <p class="gene-count t-meta">{{ pageData.total }} 篇文章</p>
 </div>
 
 <ul class="post-list">
-  {% for post in yearPosts %}
+  {% for post in pageData.posts %}
   <li>
     <span class="post-date">{{ post.date | dateFormat("yyyy-MM-dd") }}</span>
     <a href="{{ post.url }}" class="post-title">{{ post.data.title }}</a>
   </li>
   {% endfor %}
 </ul>
+
+{% set pgCurrent = pageData.page %}
+{% set pgTotal = pageData.totalPages %}
+{% set pgBaseUrl = "/gene/" + pageData.year + "/" %}
+{% include "partials/pagination.njk" %}
 {% endblock %}
