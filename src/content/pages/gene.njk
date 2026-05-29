@@ -8,7 +8,7 @@ permalink: /gene/
 {% block content %}
 <div
   class="gene-header"
-  data-tags-label="{{ collections.tagList.text | length }} 个标签"
+  data-tags-label="{{ collections.tagList | length }} 个标签"
   data-years-label="{{ collections.yearList | length }} 个年份"
 >
   <h1 class="gene-title">
@@ -16,12 +16,12 @@ permalink: /gene/
     <span class="gene-title-sep">/</span>
     <span class="gene-title-btn" data-view="years">年份</span>
   </h1>
-  <p class="gene-count t-meta" id="gene-count">{{ collections.tagList.text | length }} 个标签</p>
+  <p class="gene-count t-meta" id="gene-count">{{ collections.tagList | length }} 个标签</p>
 </div>
 
 <div class="gene-view active" data-view="tags">
   <div class="tag-grid">
-    {% for tag in collections.tagList.text %}
+    {% for tag in collections.tagList %}
     {% set tagUrl %}/gene/{{ tag | tagSlug }}/{% endset %}
     {% set count = collections.tagCounts[tag] %}
     <a href="{{ tagUrl }}" class="tag-card">

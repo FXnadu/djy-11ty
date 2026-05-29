@@ -30,25 +30,10 @@ module.exports = {
 
     eleventyConfig.addCollection("tagList", (collectionApi) => {
       const tagCount = countPostTags(getPosts(collectionApi));
-      const numericTags = [];
-      const textTags = [];
-
-      for (const [tag, count] of tagCount) {
-        if (/^\d+$/.test(tag)) {
-          numericTags.push({ tag, count });
-        } else {
-          textTags.push({ tag, count });
-        }
-      }
-
-      numericTags.sort((a, b) => Number(b.tag) - Number(a.tag));
-      textTags.sort((a, b) => b.count - a.count);
-
-      return {
-        text: textTags.map((item) => item.tag),
-        year: numericTags.map((item) => item.tag),
-        all: [...numericTags, ...textTags].map((item) => item.tag),
-      };
+      return [...tagCount.entries()]
+        .filter(([tag]) => !/^\d+$/.test(tag))
+        .sort((a, b) => b[1] - a[1])
+        .map(([tag]) => tag);
     });
 
     eleventyConfig.addCollection("tagCounts", (collectionApi) => {

@@ -52,9 +52,7 @@ describe("collections", () => {
     const tagList = eleventyConfig.registeredCollections.tagList(createCollectionApi(posts));
     const tagCounts = eleventyConfig.registeredCollections.tagCounts(createCollectionApi(posts));
 
-    expect(tagList.text).toEqual(["前端", "生活"]);
-    expect(tagList.year).toEqual(["2025", "2024"]);
-    expect(tagList.all).toEqual(["2025", "2024", "前端", "生活"]);
+    expect(tagList).toEqual(["前端", "生活"]);
     expect(tagCounts).toEqual({ "2024": 1, "2025": 2, "前端": 2, "生活": 1 });
   });
 
