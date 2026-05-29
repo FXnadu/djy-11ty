@@ -9,6 +9,7 @@ module.exports = {
     });
 
     eleventyConfig.addFilter("dateISO", (date) => {
+      if (date === "now") return DateTime.now().toISODate();
       if (!date) return "";
       return DateTime.fromJSDate(date).toISODate();
     });

@@ -28,11 +28,11 @@
     "markdown-it-kbd": "^3.0.2",
     "markdown-it-mark": "^4.0.0",
     "markdown-it-task-lists": "^2.1.1",
-    "mermaid": "^11.15.0"
+    "luxon": "^3.7.2",
+    "mermaid": "^11.15.0",
+    "@11ty/eleventy-plugin-syntaxhighlight": "^5.0.2"
   },
   "devDependencies": {
-    "@11ty/eleventy-plugin-syntaxhighlight": "^5.0.2",
-    "luxon": "^3.7.2",
     "vitest": "^4.1.7"
   }
 }

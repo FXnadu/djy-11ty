@@ -1,7 +1,7 @@
 module.exports = {
   title: "DJY",
-  description: "DJY 静态站点 - 基于 Eleventy 构建",
-  url: process.env.SITE_URL || "",
+  description: "DJY 的个人中心 - 基于 Eleventy 构建",
+  url: process.env.SITE_URL || "https://dengjunyu.com",
   language: "zh-CN",
   about: "一个热爱电影、音乐和生活的人。",
   footer: {
