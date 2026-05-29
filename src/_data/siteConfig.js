@@ -12,7 +12,7 @@ module.exports = {
     { name: "GitHub", value: "FXnadu", url: "https://github.com/FXnadu" },
     { name: "Blog", value: "deepwhitex.com", url: "https://deepwhitex.com" },
     { name: "Email", value: "deepwhitex@outlook.com", url: "mailto:deepwhitex@outlook.com" },
-    { name: "微信", value: "dengjunyu_wx" },
+    { name: "微信", value: "deepwhitex_" },
     { name: "QQ", value: "2035083310" },
   ]
 };

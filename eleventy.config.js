@@ -67,6 +67,10 @@ module.exports = async function(eleventyConfig) {
 
   eleventyConfig.setLibrary("md", mdLib);
 
+  // Watch configuration for hot reload
+  eleventyConfig.setWatchThrottleWaitTime(100);
+  eleventyConfig.addWatchTarget("src/**/*.{md,njk,css,js}");
+
   return {
     dir: {
       input: "src",

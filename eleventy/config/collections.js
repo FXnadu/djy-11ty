@@ -54,7 +54,7 @@ module.exports = {
     });
 
     eleventyConfig.addCollection("tagPages", (collectionApi) => {
-      const pageSize = 3;
+      const pageSize = 16;
       const allPosts = getPosts(collectionApi);
       const tagCount = countPostTags(allPosts);
       const items = [];
@@ -88,7 +88,7 @@ module.exports = {
     });
 
     eleventyConfig.addCollection("yearPages", (collectionApi) => {
-      const pageSize = 3;
+      const pageSize = 16;
       const map = new Map();
       getPosts(collectionApi).forEach((item) => {
         const year = new Date(item.date).getFullYear();
