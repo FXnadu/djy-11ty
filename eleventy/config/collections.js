@@ -1,5 +1,7 @@
 module.exports = {
   registerCollections(eleventyConfig) {
+    const genePageSize = 16;
+
     const getPosts = (collectionApi) => {
       return collectionApi.getFilteredByGlob("src/content/posts/**/*.md");
     };
@@ -54,7 +56,6 @@ module.exports = {
     });
 
     eleventyConfig.addCollection("tagPages", (collectionApi) => {
-      const pageSize = 16;
       const allPosts = getPosts(collectionApi);
       const tagCount = countPostTags(allPosts);
       const items = [];
@@ -64,14 +65,14 @@ module.exports = {
         const posts = sortByNewest(
           allPosts.filter((post) => (post.data.tags || []).includes(tag))
         );
-        const totalPages = Math.ceil(posts.length / pageSize);
+        const totalPages = Math.ceil(posts.length / genePageSize);
         for (let page = 0; page < totalPages; page++) {
           items.push({
             tag,
             total: posts.length,
             totalPages,
             page,
-            posts: posts.slice(page * pageSize, (page + 1) * pageSize),
+            posts: posts.slice(page * genePageSize, (page + 1) * genePageSize),
           });
         }
       }
@@ -88,7 +89,6 @@ module.exports = {
     });
 
     eleventyConfig.addCollection("yearPages", (collectionApi) => {
-      const pageSize = 16;
       const map = new Map();
       getPosts(collectionApi).forEach((item) => {
         const year = new Date(item.date).getFullYear();
@@ -98,14 +98,14 @@ module.exports = {
       const items = [];
       for (const [year, list] of map) {
         const sorted = sortByNewest(list);
-        const totalPages = Math.ceil(sorted.length / pageSize);
+        const totalPages = Math.ceil(sorted.length / genePageSize);
         for (let page = 0; page < totalPages; page++) {
           items.push({
             year,
             total: sorted.length,
             totalPages,
             page,
-            posts: sorted.slice(page * pageSize, (page + 1) * pageSize),
+            posts: sorted.slice(page * genePageSize, (page + 1) * genePageSize),
           });
         }
       }

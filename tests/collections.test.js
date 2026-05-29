@@ -62,7 +62,7 @@ describe("collections", () => {
     const eleventyConfig = createEleventyConfig();
     collections.registerCollections(eleventyConfig);
 
-    const frontendPosts = Array.from({ length: 11 }, (_, index) => ({
+    const frontendPosts = Array.from({ length: 20 }, (_, index) => ({
       date: new Date(2025, 0, index + 1),
       data: { tags: ["post", "前端", "2025"] },
     }));
@@ -72,10 +72,10 @@ describe("collections", () => {
     const tagPages = eleventyConfig.registeredCollections.tagPages(createCollectionApi(frontendPosts, dynamics));
 
     expect(tagPages).toHaveLength(2);
-    expect(tagPages[0]).toMatchObject({ tag: "前端", page: 0, totalPages: 2, total: 11 });
-    expect(tagPages[0].posts).toHaveLength(10);
-    expect(tagPages[1]).toMatchObject({ tag: "前端", page: 1, totalPages: 2, total: 11 });
-    expect(tagPages[1].posts).toHaveLength(1);
+    expect(tagPages[0]).toMatchObject({ tag: "前端", page: 0, totalPages: 2, total: 20 });
+    expect(tagPages[0].posts).toHaveLength(16);
+    expect(tagPages[1]).toMatchObject({ tag: "前端", page: 1, totalPages: 2, total: 20 });
+    expect(tagPages[1].posts).toHaveLength(4);
   });
 
   it("builds year collections from post dates", () => {
