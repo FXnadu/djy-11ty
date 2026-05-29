@@ -30,11 +30,17 @@ permalink: /
       <a href="{{ post.url }}" class="post-title">{{ post.data.title }}</a>
     </li>
     {% endfor %}
-    <li>
-      <span class="post-date"></span>
-      <a href="/posts/" class="post-title">查看更多 →</a>
-    </li>
   </ul>
+</section>
+
+<section class="section">
+  <div class="section-header">
+    <h2>关于我</h2>
+    <span class="t-meta">About</span>
+  </div>
+  <div class="about-content">
+    <p class="about-text">{{ siteConfig.about }}</p>
+  </div>
 </section>
 
 <section class="section">
@@ -56,14 +62,5 @@ permalink: /
   </div>
 </section>
 
-<script>
-document.querySelectorAll('.contact-copy').forEach(function (el) {
-  el.addEventListener('click', function () {
-    navigator.clipboard.writeText(el.dataset.copy).then(function () {
-      el.classList.add('copied');
-      setTimeout(function () { el.classList.remove('copied'); }, 1200);
-    });
-  });
-});
-</script>
+<script src="/assets/js/contact-copy.js" defer></script>
 {% endblock %}

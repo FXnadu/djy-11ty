@@ -1,26 +1,41 @@
 ---
 pagination:
-  data: collections.tagList.all
+  data: collections.tagPages
   size: 1
-  alias: tag
-permalink: /gene/{{ tag | tagSlug }}/
+  alias: pageData
+permalink: /gene/{{ pageData.tag | tagSlug }}/{% if pageData.page > 0 %}{{ pageData.page + 1 }}/{% endif %}
 ---
 
 {% extends "layouts/base.njk" %}
 
 {% block content %}
 <div class="gene-header">
-  <h1 class="gene-title">{{ tag }}</h1>
-  {% set tagPosts = collections[tag] %}
-  <p class="gene-count t-meta">{{ tagPosts | length }} 篇文章</p>
+  <h1 class="gene-title">{{ pageData.tag }}</h1>
+  <p class="gene-count t-meta">{{ pageData.total }} 篇文章</p>
 </div>
 
 <ul class="post-list">
-  {% for post in tagPosts | reverse %}
+  {% for post in pageData.posts %}
   <li>
     <span class="post-date">{{ post.date | dateFormat("yyyy-MM-dd") }}</span>
     <a href="{{ post.url }}" class="post-title">{{ post.data.title }}</a>
   </li>
   {% endfor %}
 </ul>
+
+{% if pageData.totalPages > 1 %}
+<nav class="pagination" aria-label="分页">
+  {% if pageData.page > 0 %}
+  <a href="{{ pagination.href.previous }}" class="pagination-link">← 上一页</a>
+  {% else %}
+  <span class="pagination-link is-disabled">← 上一页</span>
+  {% endif %}
+  <span class="pagination-info t-meta">{{ pageData.page + 1 }}&thinsp;/&thinsp;{{ pageData.totalPages }}</span>
+  {% if pageData.page < pageData.totalPages - 1 %}
+  <a href="{{ pagination.href.next }}" class="pagination-link">下一页 →</a>
+  {% else %}
+  <span class="pagination-link is-disabled">下一页 →</span>
+  {% endif %}
+</nav>
+{% endif %}
 {% endblock %}

@@ -1,8 +1,9 @@
 module.exports = {
   title: "DJY",
   description: "DJY 静态站点 - 基于 Eleventy 构建",
-  url: "https://djy.example.com",
+  url: process.env.SITE_URL || "",
   language: "zh-CN",
+  about: "一个喜欢技术、咖啡和旅行的人。用代码构建有趣的东西，用文字记录生活的点滴。",
   footer: {
     copyright: "DJY",
     poweredBy: "基于 Eleventy 构建"

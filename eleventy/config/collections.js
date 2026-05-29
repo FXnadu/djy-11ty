@@ -1,27 +1,36 @@
 module.exports = {
   registerCollections(eleventyConfig) {
-    eleventyConfig.addCollection("posts", (collectionApi) => {
-      return collectionApi.getFilteredByGlob("src/content/posts/**/*.md")
-        .sort((a, b) => b.date - a.date);
-    });
+    const getPosts = (collectionApi) => {
+      return collectionApi.getFilteredByGlob("src/content/posts/**/*.md");
+    };
 
-    eleventyConfig.addCollection("dynamics", (collectionApi) => {
-      return collectionApi.getFilteredByGlob("src/content/dynamics/**/*.md")
-        .sort((a, b) => b.date - a.date);
-    });
+    const sortByNewest = (items) => {
+      return [...items].sort((a, b) => b.date - a.date);
+    };
 
-    // All unique topic tags (excluding "post"), split by type
-    eleventyConfig.addCollection("tagList", (collectionApi) => {
+    const countPostTags = (posts) => {
       const tagCount = new Map();
-      const posts = collectionApi.getFilteredByGlob("src/content/posts/**/*.md");
       posts.forEach((item) => {
         (item.data.tags || []).forEach((tag) => {
           if (tag !== "post") tagCount.set(tag, (tagCount.get(tag) || 0) + 1);
         });
       });
+      return tagCount;
+    };
 
+    eleventyConfig.addCollection("posts", (collectionApi) => {
+      return sortByNewest(getPosts(collectionApi));
+    });
+
+    eleventyConfig.addCollection("dynamics", (collectionApi) => {
+      return sortByNewest(collectionApi.getFilteredByGlob("src/content/dynamics/**/*.md"));
+    });
+
+    eleventyConfig.addCollection("tagList", (collectionApi) => {
+      const tagCount = countPostTags(getPosts(collectionApi));
       const numericTags = [];
       const textTags = [];
+
       for (const [tag, count] of tagCount) {
         if (/^\d+$/.test(tag)) {
           numericTags.push({ tag, count });
@@ -40,27 +49,53 @@ module.exports = {
       };
     });
 
-    // Year list derived from post dates, plus dynamic year collections
+    eleventyConfig.addCollection("tagCounts", (collectionApi) => {
+      return Object.fromEntries(countPostTags(getPosts(collectionApi)));
+    });
+
+    eleventyConfig.addCollection("tagPages", (collectionApi) => {
+      const pageSize = 10;
+      const allPosts = getPosts(collectionApi);
+      const tagCount = countPostTags(allPosts);
+      const pages = [];
+
+      for (const [tag] of tagCount) {
+        if (/^\d+$/.test(tag)) continue;
+        const posts = sortByNewest(
+          allPosts.filter((post) => (post.data.tags || []).includes(tag))
+        );
+        const totalPages = Math.ceil(posts.length / pageSize);
+
+        for (let page = 0; page < totalPages; page++) {
+          pages.push({
+            tag,
+            page,
+            totalPages,
+            total: posts.length,
+            posts: posts.slice(page * pageSize, (page + 1) * pageSize),
+          });
+        }
+      }
+      return pages;
+    });
+
     eleventyConfig.addCollection("yearList", (collectionApi) => {
-      const posts = collectionApi.getFilteredByGlob("src/content/posts/**/*.md");
       const yearSet = new Set();
-      posts.forEach((item) => {
+      getPosts(collectionApi).forEach((item) => {
         const year = new Date(item.date).getFullYear();
         if (year) yearSet.add(year);
       });
       return [...yearSet].sort((a, b) => b - a);
     });
 
-    // Dynamic year collections: collections["2026"] returns posts from 2026
     eleventyConfig.addCollection("yearCollections", (collectionApi) => {
-      const posts = collectionApi.getFilteredByGlob("src/content/posts/**/*.md");
       const map = new Map();
-      posts.forEach((item) => {
+      getPosts(collectionApi).forEach((item) => {
         const year = new Date(item.date).getFullYear();
         if (!map.has(year)) map.set(year, []);
         map.get(year).push(item);
       });
-      for (const [, list] of map) list.sort((a, b) => b.date - a.date);
+      for (const [year, list] of map) map.set(year, sortByNewest(list));
       return map;
     });
   }

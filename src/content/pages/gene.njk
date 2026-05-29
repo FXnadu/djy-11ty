@@ -6,7 +6,11 @@ permalink: /gene/
 {% extends "layouts/base.njk" %}
 
 {% block content %}
-<div class="gene-header">
+<div
+  class="gene-header"
+  data-tags-label="{{ collections.tagList.text | length }} 个标签"
+  data-years-label="{{ collections.yearList | length }} 个年份"
+>
   <h1 class="gene-title">
     <span class="gene-title-btn active" data-view="tags">标签</span>
     <span class="gene-title-sep">/</span>
@@ -19,7 +23,7 @@ permalink: /gene/
   <div class="tag-grid">
     {% for tag in collections.tagList.text %}
     {% set tagUrl %}/gene/{{ tag | tagSlug }}/{% endset %}
-    {% set count = collections[tag] | length %}
+    {% set count = collections.tagCounts[tag] %}
     <a href="{{ tagUrl }}" class="tag-card">
       <span class="tag-name">{{ tag }}</span>
       <span class="tag-count t-meta">{{ count }} 篇</span>
@@ -33,28 +37,12 @@ permalink: /gene/
     {% for year in collections.yearList %}
     {% set yearPosts = collections.yearCollections.get(year) %}
     <a href="/gene/{{ year }}/" class="tag-card">
-      <span class="tag-name" style="font-family: var(--mono); letter-spacing: 0.04em;">{{ year }}</span>
+      <span class="tag-name tag-name-year">{{ year }}</span>
       <span class="tag-count t-meta">{{ yearPosts | length }} 篇</span>
     </a>
     {% endfor %}
   </div>
 </div>
 
-<script>
-(function () {
-  var btns = document.querySelectorAll('.gene-title-btn');
-  var views = document.querySelectorAll('.gene-view');
-  var countEl = document.getElementById('gene-count');
-  var labels = { tags: '{{ collections.tagList.text | length }} 个标签', years: '{{ collections.yearList | length }} 个年份' };
-  btns.forEach(function (btn) {
-    btn.addEventListener('click', function () {
-      btns.forEach(function (b) { b.classList.remove('active'); });
-      views.forEach(function (v) { v.classList.remove('active'); });
-      btn.classList.add('active');
-      document.querySelector('.gene-view[data-view="' + btn.dataset.view + '"]').classList.add('active');
-      countEl.textContent = labels[btn.dataset.view];
-    });
-  });
-})();
-</script>
+<script src="/assets/js/gene-toggle.js" defer></script>
 {% endblock %}

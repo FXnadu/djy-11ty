@@ -353,6 +353,17 @@ a:hover {
   flex-shrink: 0;
 }
 
+/* About section */
+.about-content {
+  max-width: 65ch;
+}
+
+.about-text {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: var(--grey-3);
+}
+
 /* Contact grid */
 .contact-grid {
   display: grid;
@@ -844,19 +855,6 @@ a:hover {
   margin-bottom: var(--sp-8);
 }
 
-.gene-back {
-  display: inline-block;
-  margin-top: var(--sp-6);
-  margin-bottom: var(--sp-4);
-  border-bottom: none;
-  color: var(--grey-3);
-}
-
-.gene-back:hover {
-  color: var(--ink);
-  border-bottom: none;
-}
-
 /* Gene title as tab */
 .gene-title {
   font-weight: 200;
@@ -917,6 +915,11 @@ a:hover {
 .tag-name {
   font-size: 1rem;
   font-weight: 400;
+}
+
+.tag-name-year {
+  font-family: var(--mono);
+  letter-spacing: 0.04em;
 }
 
 .tag-count {
