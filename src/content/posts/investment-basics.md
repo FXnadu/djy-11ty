@@ -1,9 +1,9 @@
 ---
 title: 投资理财入门
 description: 从零开始学习投资，建立正确的理财观念。
-date: 2026-05-14
+date: 2024-05-14
 tags: [post, 理财, 投资]
-category: 理财
+category: "2025/理财"
 ---
 
 ## 理财的第一步

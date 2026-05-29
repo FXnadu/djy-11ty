@@ -1,9 +1,9 @@
 ---
 title: React Hooks 深度解析
 description: 深入理解 useState、useEffect 等核心 Hooks 的工作原理。
-date: 2026-05-20
+date: 2022-05-20
 tags: [post, React, 前端]
-category: 技术
+category: "2025/技术"
 ---
 
 ## 为什么需要 Hooks

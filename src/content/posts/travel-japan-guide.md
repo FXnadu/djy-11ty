@@ -1,9 +1,9 @@
 ---
 title: 日本旅行完全指南
 description: 从东京到京都，带你领略日本的独特魅力。
-date: 2026-05-26
+date: 2025-05-26
 tags: [post, 旅行, 日本]
-category: 旅行
+category: "2026/旅行"
 ---
 
 ## 行程规划

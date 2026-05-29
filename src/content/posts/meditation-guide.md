@@ -1,9 +1,9 @@
 ---
 title: 冥想入门指南
 description: 通过冥想减轻压力，提升专注力和幸福感。
-date: 2026-05-13
+date: 2023-05-13
 tags: [post, 冥想, 健康]
-category: 健康
+category: "2026/健康"
 ---
 
 ## 什么是冥想

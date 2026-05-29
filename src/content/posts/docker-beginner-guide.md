@@ -1,9 +1,9 @@
 ---
 title: Docker 入门指南
 description: 容器化技术基础，从安装到部署的完整教程。
-date: 2026-05-16
+date: 2025-05-16
 tags: [post, Docker, DevOps]
-category: 技术
+category: "2024/技术"
 ---
 
 ## 什么是 Docker

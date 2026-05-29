@@ -1,9 +1,9 @@
 ---
 title: 室内植物养护指南
 description: 适合新手的室内绿植推荐和养护技巧。
-date: 2026-05-11
+date: 2024-05-11
 tags: [post, 植物, 生活]
-category: 生活
+category: "2026/生活"
 ---
 
 ## 新手友好植物

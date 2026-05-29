@@ -1,9 +1,9 @@
 ---
 title: 程序员职业发展路径
 description: 从技术新手到架构师，程序员的成长之路。
-date: 2026-05-08
+date: 2023-05-08
 tags: [post, 职业, 成长]
-category: 职场
+category: "2023/职场"
 ---
 
 ## 职业阶段

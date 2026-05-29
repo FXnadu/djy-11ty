@@ -1,9 +1,9 @@
 ---
 title: 音乐制作入门
 description: 从零开始学习电子音乐制作的基础知识。
-date: 2026-05-09
+date: 2023-05-09
 tags: [post, 音乐, 创意]
-category: 兴趣
+category: "2026/兴趣"
 ---
 
 ## 必备软件

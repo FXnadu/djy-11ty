@@ -1,0 +1,26 @@
+---
+pagination:
+  data: collections.yearList
+  size: 1
+  alias: year
+permalink: /gene/{{ year }}/
+---
+
+{% extends "layouts/base.njk" %}
+
+{% block content %}
+<div class="gene-header">
+  <h1 class="gene-title">{{ year }}</h1>
+  {% set yearPosts = collections.yearCollections.get(year) %}
+  <p class="gene-count t-meta">{{ yearPosts | length }} 篇文章</p>
+</div>
+
+<ul class="post-list">
+  {% for post in yearPosts %}
+  <li>
+    <span class="post-date">{{ post.date | dateFormat("yyyy-MM-dd") }}</span>
+    <a href="{{ post.url }}" class="post-title">{{ post.data.title }}</a>
+  </li>
+  {% endfor %}
+</ul>
+{% endblock %}

@@ -1,9 +1,9 @@
 ---
 title: 前端框架对比分析
 description: 深入对比 React、Vue、Angular 三大主流前端框架的优缺点。
-date: 2026-05-27
+date: 2025-05-27
 tags: [post, 前端, 技术]
-category: 技术
+category: "2024/技术"
 ---
 
 ## 前言

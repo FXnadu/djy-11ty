@@ -1,9 +1,9 @@
 ---
 title: 摄影入门基础
 description: 掌握曝光三要素，拍出专业级照片。
-date: 2026-05-15
+date: 2024-05-15
 tags: [post, 摄影, 创意]
-category: 兴趣
+category: "2026/兴趣"
 ---
 
 ## 曝光三要素

@@ -3,7 +3,7 @@ title: Markdown 语法大全
 description: 一篇完整演示所有 Markdown 语法的文章，用于测试站点排版效果。
 date: 2026-05-28
 tags: [post]
-category: 教程
+category: "2023/教程"
 ---
 
 ## 标题层级

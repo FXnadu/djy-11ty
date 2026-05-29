@@ -1,9 +1,9 @@
 ---
 title: 技术写作技巧
 description: 如何写出清晰、易懂的技术文档和博客文章。
-date: 2026-05-10
+date: 2022-05-10
 tags: [post, 写作, 效率]
-category: 随笔
+category: "2026/随笔"
 ---
 
 ## 写作前的准备

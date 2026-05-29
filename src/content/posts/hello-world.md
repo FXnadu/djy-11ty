@@ -1,9 +1,9 @@
 ---
 title: Hello World
 description: 第一篇文章，介绍 DJY 站点的搭建过程。
-date: 2026-05-28
+date: 2025-05-28
 tags: [post]
-category: 随笔
+category: "2023/随笔"
 ---
 
 欢迎来到 DJY 站点！这是使用 [Eleventy](https://www.11ty.dev/) 搭建的静态站点。

@@ -1,9 +1,9 @@
 ---
 title: 极简主义生活实践
 description: 断舍离之后，我获得了更多自由。
-date: 2026-05-21
+date: 2024-05-21
 tags: [post, 极简主义, 生活]
-category: 随笔
+category: "2026/随笔"
 ---
 
 ## 什么是极简主义

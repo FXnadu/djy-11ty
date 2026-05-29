@@ -1,18 +1,38 @@
 ---
 title: 文章列表
-permalink: /posts/
+permalink: /posts/{% if pagination.pageNumber > 0 %}{{ pagination.pageNumber + 1 }}/{% endif %}
+pagination:
+  data: collections.posts
+  size: 10
+  alias: posts
 ---
 
 {% extends "layouts/base.njk" %}
 
 {% block content %}
-<h1 style="margin-top: var(--sp-10); margin-bottom: var(--sp-8);">{{ title }}</h1>
+<h1 class="page-header">{{ title }}</h1>
 <ul class="post-list">
-  {% for post in collections.posts %}
+  {% for post in posts %}
   <li>
     <span class="post-date">{{ post.date | dateFormat("yyyy-MM-dd") }}</span>
     <a href="{{ post.url }}" class="post-title">{{ post.data.title }}</a>
   </li>
   {% endfor %}
 </ul>
+
+{% if pagination.pages | length > 1 %}
+<nav class="pagination" aria-label="分页">
+  {% if pagination.href.previous %}
+  <a href="{{ pagination.href.previous }}" class="pagination-link">← 上一页</a>
+  {% else %}
+  <span class="pagination-link is-disabled">← 上一页</span>
+  {% endif %}
+  <span class="pagination-info t-meta">{{ pagination.pageNumber + 1 }}&thinsp;/&thinsp;{{ pagination.pages | length }}</span>
+  {% if pagination.href.next %}
+  <a href="{{ pagination.href.next }}" class="pagination-link">下一页 →</a>
+  {% else %}
+  <span class="pagination-link is-disabled">下一页 →</span>
+  {% endif %}
+</nav>
+{% endif %}
 {% endblock %}

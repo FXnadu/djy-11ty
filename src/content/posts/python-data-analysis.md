@@ -1,9 +1,9 @@
 ---
 title: Python 数据分析入门
 description: 使用 Pandas 和 Matplotlib 进行数据分析和可视化。
-date: 2026-05-25
+date: 2025-05-25
 tags: [post, Python, 数据科学]
-category: 教程
+category: "2024/教程"
 ---
 
 ## 环境搭建

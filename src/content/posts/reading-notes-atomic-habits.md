@@ -1,9 +1,9 @@
 ---
 title: 《原子习惯》读书笔记
 description: 微小改变带来巨大成果，习惯养成的科学方法。
-date: 2026-05-17
+date: 2024-05-17
 tags: [post, 读书, 自我提升]
-category: 读书
+category: "2026/读书"
 ---
 
 ## 核心观点

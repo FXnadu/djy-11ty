@@ -1,9 +1,9 @@
 ---
 title: TypeScript 最佳实践
 description: 编写更健壮、可维护的 TypeScript 代码。
-date: 2026-05-18
+date: 2024-05-18
 tags: [post, TypeScript, 前端]
-category: 技术
+category: "2024/技术"
 ---
 
 ## 严格模式

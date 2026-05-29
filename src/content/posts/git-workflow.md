@@ -1,9 +1,9 @@
 ---
 title: Git 工作流最佳实践
 description: 团队协作中的 Git 分支管理和提交规范。
-date: 2026-05-12
+date: 2022-05-12
 tags: [post, Git, 开发工具]
-category: 技术
+category: "2024/技术"
 ---
 
 ## 分支策略

@@ -1,0 +1,26 @@
+---
+pagination:
+  data: collections.tagList.all
+  size: 1
+  alias: tag
+permalink: /gene/{{ tag | tagSlug }}/
+---
+
+{% extends "layouts/base.njk" %}
+
+{% block content %}
+<div class="gene-header">
+  <h1 class="gene-title">{{ tag }}</h1>
+  {% set tagPosts = collections[tag] %}
+  <p class="gene-count t-meta">{{ tagPosts | length }} 篇文章</p>
+</div>
+
+<ul class="post-list">
+  {% for post in tagPosts | reverse %}
+  <li>
+    <span class="post-date">{{ post.date | dateFormat("yyyy-MM-dd") }}</span>
+    <a href="{{ post.url }}" class="post-title">{{ post.data.title }}</a>
+  </li>
+  {% endfor %}
+</ul>
+{% endblock %}

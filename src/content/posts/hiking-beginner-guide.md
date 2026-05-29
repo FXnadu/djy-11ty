@@ -1,9 +1,9 @@
 ---
 title: 徒步新手入门指南
 description: 从零开始，安全享受户外徒步的乐趣。
-date: 2026-05-19
+date: 2022-05-19
 tags: [post, 户外, 运动]
-category: 生活
+category: "2025/生活"
 ---
 
 ## 为什么选择徒步

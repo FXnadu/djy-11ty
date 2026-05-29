@@ -3,7 +3,7 @@ title: 手冲咖啡入门指南
 description: 从选豆到冲泡，教你在家做出专业级手冲咖啡。
 date: 2026-05-23
 tags: [post, 咖啡, 生活]
-category: 生活
+category: "2025/生活"
 ---
 
 ## 器具准备

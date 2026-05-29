@@ -5,7 +5,19 @@
   <article class="post">
     <header class="post-header">
       <h1>{{ title }}</h1>
-      <time datetime="{{ date | dateISO }}">{{ date | dateFormat }}</time>
+      <div class="post-meta">
+        <time datetime="{{ date | dateISO }}">{{ date | dateFormat }}</time>
+        {% if tags %}
+        <div class="post-tags">
+          {% for tag in tags %}
+            {% if tag != "post" %}
+              {% set tagUrl %}/gene/{{ tag | tagSlug }}/{% endset %}
+              <a href="{{ tagUrl }}" class="post-tag">{{ tag }}</a>
+            {% endif %}
+          {% endfor %}
+        </div>
+        {% endif %}
+      </div>
     </header>
     <div class="post-content">
       {{ content | safe }}
@@ -17,7 +29,9 @@
 <script src="/assets/js/footnote-preview.js" defer></script>
 <script src="/assets/js/tabs.js" defer></script>
 <script type="module">
-  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
-  mermaid.initialize({ startOnLoad: true, theme: "base", themeVariables: { primaryColor: "#eaeae5", primaryTextColor: "#0a0a0a", primaryBorderColor: "#d0d0cb", lineColor: "#737373", fontFamily: "Inter, sans-serif" } });
+  if (document.querySelector('.mermaid')) {
+    const { default: mermaid } = await import("https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs");
+    mermaid.initialize({ startOnLoad: true, theme: "base", themeVariables: { primaryColor: "#eaeae5", primaryTextColor: "#0a0a0a", primaryBorderColor: "#d0d0cb", lineColor: "#737373", fontFamily: "Inter, sans-serif" } });
+  }
 </script>
 {% endblock %}

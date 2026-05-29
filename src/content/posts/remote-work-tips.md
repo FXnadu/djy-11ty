@@ -1,9 +1,9 @@
 ---
 title: 远程工作生存指南
 description: 如何在家高效工作，保持工作与生活平衡。
-date: 2026-05-22
+date: 2025-05-22
 tags: [post, 工作, 效率]
-category: 职场
+category: "2025/职场"
 ---
 
 ## 打造专属工作空间

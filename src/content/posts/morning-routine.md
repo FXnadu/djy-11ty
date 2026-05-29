@@ -1,9 +1,9 @@
 ---
 title: 我的晨间 routine
 description: 分享如何打造高效的晨间习惯，开启充实的一天。
-date: 2026-05-24
+date: 2025-05-24
 tags: [post, 生活, 效率]
-category: 随笔
+category: "2026/随笔"
 ---
 
 ## 为什么需要晨间 routine
