@@ -12,10 +12,23 @@ const markdownItTabs = require("./eleventy/plugins/markdown-it-tabs");
 const { registerCollections } = require("./eleventy/config/collections");
 const { registerFilters } = require("./eleventy/config/filters");
 const { passthroughPaths } = require("./eleventy/config/passthrough");
+const { execSync } = require("child_process");
 
 module.exports = async function(eleventyConfig) {
   // Plugins
   eleventyConfig.addPlugin(syntaxHighlight);
+
+  // Mermaid pre-rendering (production build only)
+  if (process.env.NODE_ENV === 'production') {
+    eleventyConfig.on('eleventy.after', () => {
+      console.log('\n📊 Pre-rendering Mermaid diagrams...');
+      try {
+        execSync('node scripts/render-mermaid.js', { stdio: 'inherit' });
+      } catch (e) {
+        console.warn('Mermaid pre-rendering failed, falling back to client-side rendering');
+      }
+    });
+  }
 
   // Global data (only expose safe, non-sensitive variables)
   eleventyConfig.addGlobalData("env", {

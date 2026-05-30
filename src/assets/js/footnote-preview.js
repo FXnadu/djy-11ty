@@ -14,16 +14,23 @@
     if (!item) return;
 
     ref.addEventListener('mouseenter', function () {
+      // 先读取位置信息（读操作）
+      var rect = ref.getBoundingClientRect();
+      var scrollTop = window.scrollY;
+      var scrollLeft = window.scrollX;
+
+      // 准备 tooltip 内容
       var clone = item.cloneNode(true);
       var backref = clone.querySelector('.footnote-backref');
       if (backref) backref.remove();
-      tooltip.innerHTML = clone.innerHTML;
-      tooltip.style.display = 'block';
 
-      var rect = ref.getBoundingClientRect();
-      tooltip.style.top = (rect.top + window.scrollY - 8) + 'px';
-      tooltip.style.left = Math.max(8, rect.left + window.scrollX - 16) + 'px';
-      tooltip.style.transform = 'translateY(-100%)';
+      // 批量写入样式（写操作）
+      tooltip.innerHTML = clone.innerHTML;
+      tooltip.style.cssText = 
+        'display: block; ' +
+        'top: ' + (rect.top + scrollTop - 8) + 'px; ' +
+        'left: ' + Math.max(8, rect.left + scrollLeft - 16) + 'px; ' +
+        'transform: translateY(-100%);';
     });
 
     ref.addEventListener('mouseleave', function () {

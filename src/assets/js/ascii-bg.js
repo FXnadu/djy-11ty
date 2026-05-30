@@ -7,6 +7,15 @@
   var CELL = 16;
   var FONT_SIZE = 13;
 
+  // 缓存 CSS 变量，只读取一次
+  var monoFont = null;
+  function getMonoFont() {
+    if (!monoFont) {
+      monoFont = getComputedStyle(document.documentElement).getPropertyValue('--mono') || 'Consolas, monospace';
+    }
+    return monoFont;
+  }
+
   function setup(c) {
     var dpr = Math.min(window.devicePixelRatio || 1, 2);
     var rect = c.getBoundingClientRect();
@@ -18,8 +27,7 @@
     c.__h = rect.height;
     var ctx = c.getContext('2d');
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    var mono = getComputedStyle(document.documentElement).getPropertyValue('--mono') || 'Consolas, monospace';
-    ctx.font = '500 ' + FONT_SIZE + 'px ' + mono;
+    ctx.font = '500 ' + FONT_SIZE + 'px ' + getMonoFont();
     ctx.textBaseline = 'top';
     c.__ctx = ctx;
     return true;
@@ -55,9 +63,15 @@
     if (!running) { asciiRAF = 0; return; }
     var t = (now - t0) / 1000 * 0.55;
     frame++;
+    // 批量读取所有 canvas 的位置信息（读操作）
+    var rects = [];
     canvases.forEach(function (c) {
       var parent = c.parentElement;
-      var rect = parent ? parent.getBoundingClientRect() : null;
+      rects.push(parent ? parent.getBoundingClientRect() : null);
+    });
+    // 然后再处理绘制（写操作）
+    canvases.forEach(function (c, i) {
+      var rect = rects[i];
       var onscreen = rect && rect.bottom > 0 && rect.top < window.innerHeight;
       if (!onscreen && (frame & 3) !== 0) return;
       draw(c, t);
