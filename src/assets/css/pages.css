@@ -142,10 +142,8 @@
 
 /* Post page */
 .post-layout {
-  display: grid;
-  grid-template-columns: 1fr 220px;
-  gap: var(--sp-10);
-  align-items: start;
+  max-width: 900px;
+  margin: 0 auto;
 }
 
 .post-header {
@@ -231,9 +229,16 @@
   font-style: italic;
 }
 
-/* Post sidebar — aligned to post-header bottom */
+/* Post sidebar — fixed, top adjusts on scroll */
 .post-sidebar {
-  padding-top: calc(var(--sp-10) + var(--sp-8) + var(--sp-8));
+  position: fixed;
+  right: var(--sp-7);
+  width: 220px;
+  z-index: 10;
+  max-height: calc(100vh - var(--sp-6) * 2 - 1.4rem - var(--sp-8));
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--grey-2) transparent;
 }
 
 /* Keyboard keys */
