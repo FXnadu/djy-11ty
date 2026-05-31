@@ -1,5 +1,6 @@
 const syntaxHighlight = require("@11ty/eleventy-plugin-syntaxhighlight");
 const markdownIt = require("markdown-it");
+const markdownItAnchor = require("markdown-it-anchor");
 const markdownItFootnote = require("markdown-it-footnote");
 const markdownItGitHubAlerts = require("markdown-it-github-alerts");
 const markdownItMark = require("markdown-it-mark");
@@ -11,6 +12,7 @@ const markdownItContainer = require("markdown-it-container");
 const markdownItTabs = require("./eleventy/plugins/markdown-it-tabs");
 const { registerCollections } = require("./eleventy/config/collections");
 const { registerFilters } = require("./eleventy/config/filters");
+const { registerTOCTransform } = require("./eleventy/config/toc-transform");
 const { passthroughPaths } = require("./eleventy/config/passthrough");
 const { execSync } = require("child_process");
 
@@ -41,9 +43,17 @@ module.exports = async function(eleventyConfig) {
   // Collections & Filters
   registerCollections(eleventyConfig);
   registerFilters(eleventyConfig);
+  registerTOCTransform(eleventyConfig);
 
   // Markdown
   const mdLib = markdownIt({ html: true, breaks: true, linkify: true })
+    .use(markdownItAnchor, {
+      level: [2, 3],
+      slugify: (s) => String(s).trim()
+        .toLowerCase()
+        .replace(/[^\w一-鿿]+/g, "-")
+        .replace(/^-+|-+$/g, ""),
+    })
     .use(markdownItFootnote)
     .use(markdownItGitHubAlerts.default)
     .use(markdownItMark)

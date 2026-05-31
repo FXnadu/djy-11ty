@@ -237,8 +237,30 @@
   z-index: 10;
   max-height: calc(100vh - var(--sp-6) * 2 - 1.4rem - var(--sp-8));
   overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.post-sidebar::-webkit-scrollbar {
+  display: none;
+}
+
+.post-sidebar:hover,
+.post-sidebar:focus-within {
   scrollbar-width: thin;
   scrollbar-color: var(--grey-2) transparent;
+}
+
+.post-sidebar:hover::-webkit-scrollbar,
+.post-sidebar:focus-within::-webkit-scrollbar {
+  display: block;
+  width: 6px;
+}
+
+.post-sidebar:hover::-webkit-scrollbar-thumb,
+.post-sidebar:focus-within::-webkit-scrollbar-thumb {
+  background-color: var(--grey-2);
+  border-radius: 3px;
 }
 
 /* Keyboard keys */
@@ -307,11 +329,7 @@
 }
 
 /* Responsive */
-@media (max-width: 768px) {
-  .post-layout {
-    grid-template-columns: 1fr;
-  }
-
+@media (max-width: 1200px) {
   .post-sidebar {
     display: none;
   }
