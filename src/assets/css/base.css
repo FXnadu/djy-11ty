@@ -17,7 +17,8 @@
   --grey-1: #eaeae5;
   --grey-2: #d0d0cb;
   --grey-3: #737373;
-  --sans: "Inter", "Helvetica Neue", Helvetica, "Microsoft YaHei UI", "Noto Sans SC", sans-serif;
+  --sans: "Inter", "PingFang SC", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+  --sans-display: "Inter", "PingFang SC", "Microsoft YaHei", "Noto Sans SC", sans-serif;
   --mono: "SF Mono", "Fira Code", "Consolas", monospace;
   --max-width: 1200px;
   --sp-3: 8px;
@@ -59,10 +60,10 @@ html {
 
 body {
   font-family: var(--sans);
-  font-weight: 300;
+  font-weight: 400;
   color: var(--ink);
   background: var(--paper);
-  line-height: 1.7;
+  line-height: 1.8;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
