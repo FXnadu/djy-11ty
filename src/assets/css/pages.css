@@ -147,7 +147,7 @@
 }
 
 .post-header {
-  padding: var(--sp-10) 0 var(--sp-8);
+  padding: var(--sp-10) 0 var(--sp-5);
   border-bottom: 1px solid var(--ink);
   margin-bottom: var(--sp-8);
 }
@@ -162,6 +162,7 @@
   gap: var(--sp-6);
   align-items: center;
   flex-wrap: wrap;
+  margin-top: var(--sp-6);
 }
 
 .post-content h2 {
@@ -226,6 +227,18 @@
   margin-bottom: var(--sp-6);
   color: var(--grey-3);
   font-style: italic;
+}
+
+/* Footnotes separator */
+.post-content .footnotes-sep {
+  margin: var(--sp-8) 0;
+  border: none;
+  border-top: 1px solid var(--grey-2);
+}
+
+/* Footnote reference anchor - scroll padding for centered view */
+.post-content [id^="fnref"] {
+  scroll-margin-top: 50vh;
 }
 
 /* Post sidebar — fixed, top adjusts on scroll */

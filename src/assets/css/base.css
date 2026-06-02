@@ -38,6 +38,7 @@ html {
   -moz-osx-font-smoothing: grayscale;
   scrollbar-width: thin;
   scrollbar-color: var(--grey-2) transparent;
+  scroll-behavior: smooth;
 }
 
 ::-webkit-scrollbar {
