@@ -24,10 +24,6 @@ module.exports = {
       return sortByNewest(getPosts(collectionApi));
     });
 
-    eleventyConfig.addCollection("dynamics", (collectionApi) => {
-      return sortByNewest(collectionApi.getFilteredByGlob("src/content/dynamics/**/*.md"));
-    });
-
     eleventyConfig.addCollection("tagList", (collectionApi) => {
       const tagCount = countPostTags(getPosts(collectionApi));
       return [...tagCount.entries()]

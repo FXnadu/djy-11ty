@@ -12,11 +12,10 @@ function createEleventyConfig() {
   };
 }
 
-function createCollectionApi(posts, dynamics = []) {
+function createCollectionApi(posts) {
   return {
     getFilteredByGlob(glob) {
       if (glob.includes("content/posts")) return [...posts];
-      if (glob.includes("content/dynamics")) return [...dynamics];
       return [];
     },
     getFilteredByTag(tag) {
@@ -26,18 +25,15 @@ function createCollectionApi(posts, dynamics = []) {
 }
 
 describe("collections", () => {
-  it("sorts posts and dynamics by newest first", () => {
+  it("sorts posts by newest first", () => {
     const eleventyConfig = createEleventyConfig();
     collections.registerCollections(eleventyConfig);
 
     const oldPost = { date: new Date(2024, 0, 1), data: { tags: ["post"] } };
     const newPost = { date: new Date(2025, 0, 1), data: { tags: ["post"] } };
-    const oldDynamic = { date: new Date(2026, 4, 27), data: {} };
-    const newDynamic = { date: new Date(2026, 4, 29), data: {} };
-    const collectionApi = createCollectionApi([oldPost, newPost], [oldDynamic, newDynamic]);
+    const collectionApi = createCollectionApi([oldPost, newPost]);
 
     expect(eleventyConfig.registeredCollections.posts(collectionApi)).toEqual([newPost, oldPost]);
-    expect(eleventyConfig.registeredCollections.dynamics(collectionApi)).toEqual([newDynamic, oldDynamic]);
   });
 
   it("builds tag lists without the base post tag", () => {
@@ -64,10 +60,7 @@ describe("collections", () => {
       date: new Date(2025, 0, index + 1),
       data: { tags: ["post", "前端", "2025"] },
     }));
-    const dynamics = [
-      { date: new Date(2025, 1, 1), data: { tags: ["前端"] } },
-    ];
-    const tagPages = eleventyConfig.registeredCollections.tagPages(createCollectionApi(frontendPosts, dynamics));
+    const tagPages = eleventyConfig.registeredCollections.tagPages(createCollectionApi(frontendPosts));
 
     expect(tagPages).toHaveLength(2);
     expect(tagPages[0]).toMatchObject({ tag: "前端", page: 0, totalPages: 2, total: 20 });

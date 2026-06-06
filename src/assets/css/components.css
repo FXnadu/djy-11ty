@@ -54,7 +54,7 @@
   border-bottom: none;
 }
 
-/* Page header (shared by posts, dynamics, gene pages) */
+/* Page header (shared by posts, gene pages) */
 .page-header {
   margin-top: var(--sp-10);
   margin-bottom: var(--sp-8);
@@ -537,42 +537,6 @@
 .site-footer p {
   font-size: 0.75rem;
   color: var(--grey-3);
-}
-
-/* Dynamics feed */
-.dynamics-feed {
-  display: flex;
-  flex-direction: column;
-}
-
-.dynamics-item {
-  display: grid;
-  grid-template-columns: 120px 1fr;
-  gap: var(--sp-6);
-  padding: var(--sp-7) 0;
-  border-bottom: 1px solid var(--grey-1);
-}
-
-.dynamics-item:first-child {
-  border-top: 1px solid var(--grey-1);
-}
-
-.dynamics-date {
-  padding-top: 2px;
-  font-size: 0.75rem;
-  color: var(--grey-3);
-  letter-spacing: 0.04em;
-}
-
-.dynamics-body {
-  max-width: 65ch;
-}
-
-.dynamics-body p {
-  margin-bottom: 0;
-  font-size: 0.95rem;
-  line-height: 1.8;
-  color: var(--ink);
 }
 
 /* Pagination */
