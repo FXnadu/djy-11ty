@@ -4,9 +4,9 @@
   "description": "DJY - Eleventy static site",
   "main": "eleventy.config.js",
   "scripts": {
-    "start": "eleventy --serve",
+    "start": "node scripts/generate-fonts.js && eleventy --serve",
     "clean": "node -e \"require('node:fs').rmSync('_site', { recursive: true, force: true })\"",
-    "build": "npm run clean && NODE_ENV=production eleventy",
+    "build": "npm run clean && node scripts/generate-fonts.js && NODE_ENV=production eleventy",
     "debug": "DEBUG=* eleventy",
     "test": "vitest run",
     "fonts:generate": "node scripts/generate-fonts.js"
