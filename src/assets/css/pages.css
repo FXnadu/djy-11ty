@@ -205,6 +205,19 @@
   margin-bottom: var(--sp-3);
 }
 
+.post-content .task-list-item {
+  list-style: none;
+}
+
+.post-content .task-list-item::marker {
+  display: none;
+  content: "";
+}
+
+.post-content .task-list-item .task-list-item-checkbox {
+  margin-right: var(--sp-3);
+}
+
 .post-content pre {
   margin-bottom: var(--sp-6);
   overflow-x: auto;

@@ -329,6 +329,7 @@
   border-left: 2px solid transparent;
   padding-left: var(--sp-4);
   display: block;
+  transition: opacity 0.3s ease;
 }
 
 .toc-item a:hover {
@@ -341,6 +342,22 @@
   font-weight: 400;
   border-left: 2px solid var(--ink);
   padding-left: var(--sp-4);
+}
+
+/* Non-hover: dim entire non-active items (link + counter), keep only the active one clear */
+.post-sidebar .toc-item,
+.post-sidebar .toc-item::before,
+.post-sidebar .toc-title {
+  transition: opacity 0.35s ease;
+}
+
+.post-sidebar:not(:hover) .toc-item:not(:has(a.active)),
+.post-sidebar:not(:hover) .toc-title {
+  opacity: 0.12;
+}
+
+.post-sidebar:not(:hover) .toc-item:has(a.active) {
+  opacity: 1;
 }
 
 /* Footnote tooltip */
