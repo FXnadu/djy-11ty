@@ -200,7 +200,7 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: var(--sp-7);
-  align-items: start;
+  align-items: center;
   margin-bottom: var(--sp-9);
 }
 
