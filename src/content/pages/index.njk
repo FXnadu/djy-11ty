@@ -10,36 +10,10 @@ permalink: /
   <canvas class="ascii-bg" aria-hidden="true"></canvas>
   <div class="hero-content">
     <div class="split-left-content">
-      <div class="t-meta hero-label">My Network Hub</div>
+      <div class="t-meta hero-label">My Business Card</div>
       <h1 class="hero-heading">dengjunyu</h1>
-      <p class="hero-desc">线上账号常有变动，这里是我稳定不变的网络中枢，你可在此查阅最新联系方式。</p>
     </div>
 
-  </div>
-</section>
-
-<section class="section">
-  <div class="section-header">
-    <h2>最新文章</h2>
-    <span class="t-meta">Recent</span>
-  </div>
-  <ul class="post-list">
-    {% for post in collections.posts | limit(3) %}
-    <li>
-      <span class="post-date">{{ post.date | dateFormat("yyyy-MM-dd") }}</span>
-      <a href="{{ post.url }}" class="post-title">{{ post.data.title }}</a>
-    </li>
-    {% endfor %}
-  </ul>
-</section>
-
-<section class="section">
-  <div class="section-header">
-    <h2>关于我</h2>
-    <span class="t-meta">About</span>
-  </div>
-  <div class="about-content">
-    <p class="about-text">{{ siteConfig.about }}</p>
   </div>
 </section>
 
@@ -59,6 +33,16 @@ permalink: /
       {% endif %}
     </div>
     {% endfor %}
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-header">
+    <h2>关于我</h2>
+    <span class="t-meta">About</span>
+  </div>
+  <div class="about-content">
+    <p class="about-text">{{ siteConfig.about }}</p>
   </div>
 </section>
 

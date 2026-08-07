@@ -1,6 +1,6 @@
 module.exports = {
-  title: "DJY",
-  description: "DJY 的个人中心 - 基于 Eleventy 构建",
+  title: "一名地球 online 玩家的个人名片",
+  description: "我的互联网名片 —— 关于我、联系方式与更多",
   url: process.env.SITE_URL || "https://dengjunyu.com",
   language: "zh-CN",
   about: "一个热爱电影、音乐和生活的人。",
@@ -15,8 +15,12 @@ module.exports = {
   defaultImage: "",
 
   footer: {
-    copyright: "DJY",
-    poweredBy: "基于 Eleventy 构建"
+    siteSince: 2025,
+    copyrightHolder: "dengjunyu",
+    designBy: "deepwhitex",
+    tagline: "你可在此查阅我的最新联系方式",
+    icp: "粤ICP备2025426509号-4",
+    icpUrl: "https://beian.miit.gov.cn/"
   },
   contacts: [
     { name: "GitHub", value: "FXnadu", url: "https://github.com/FXnadu" },
