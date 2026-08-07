@@ -70,6 +70,10 @@ body {
   min-height: 100vh;
 }
 
+body.has-header {
+  padding-top: calc(var(--sp-6) * 2 + 1.4rem);
+}
+
 /* Grid */
 .container {
   max-width: var(--max-width);

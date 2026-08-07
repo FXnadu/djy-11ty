@@ -3,11 +3,13 @@
 <head>
   {% include "partials/head.njk" %}
 </head>
-<body>
+<body{% if showHeader %} class="has-header"{% endif %}>
+  {% if showHeader %}{% include "partials/site-header.njk" %}{% endif %}
   <main class="container">
     {% block content %}{% endblock %}
   </main>
   {% include "partials/site-footer.njk" %}
+  {% if showHeader %}<script src="/assets/js/header-scroll.js" defer></script>{% endif %}
   <script src="/assets/js/ascii-bg.js" defer></script>
 </body>
 </html>

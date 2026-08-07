@@ -1,6 +1,62 @@
 /* Components — reusable UI pieces
    Header, footer, alerts, etc. */
 
+/* Header */
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  padding: var(--sp-6) 0;
+  background: var(--paper);
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.site-header.is-hidden {
+  transform: translateY(-100%);
+}
+
+.site-header .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.site-title {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-4);
+  font-weight: 200;
+  font-size: 1.4rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border-bottom: none;
+}
+
+.site-title:hover {
+  border-bottom: none;
+}
+
+.site-header nav {
+  display: flex;
+  gap: var(--sp-7);
+}
+
+.site-header nav a {
+  font-size: 0.8rem;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--grey-3);
+  border-bottom: none;
+}
+
+.site-header nav a:hover {
+  color: var(--ink);
+  border-bottom: none;
+}
+
 /* Sections */
 .section {
   padding: var(--sp-10) 0;
@@ -216,6 +272,13 @@
   .footer-tagline {
     justify-self: start;
     text-align: left;
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .site-header nav {
+    gap: var(--sp-5);
   }
 }
 
