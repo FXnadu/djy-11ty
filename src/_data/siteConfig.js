@@ -19,7 +19,7 @@ module.exports = {
     copyrightHolder: "dengjunyu",
 
     designBy: "deepwhitex",
-    tagline: "此域名可获取我的最新联系方式",
+    tagline: "通过此域名获取我最新联系方式",
     icp: "粤ICP备2025426509号-4",
     icpUrl: "https://beian.miit.gov.cn/"
   },
