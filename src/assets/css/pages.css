@@ -141,3 +141,21 @@
 .hero .lead {
   margin-bottom: var(--sp-8);
 }
+
+/* 404 page — 内容在 header 与 footer 之间的剩余空间内居中（不改字号，仅定位）
+   body 为 flex 列布局且 min-height:100vh，main 的 flex:1 占满 header+footer
+   之外的全部剩余高度；.not-found 作为 main 的 flex 子项填满 main 并在内部居中，
+   footer 正常保留，页面总高等于视口，不会撑长 */
+main:has(.not-found) {
+  display: flex;
+  flex-direction: column;
+}
+
+.not-found {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}

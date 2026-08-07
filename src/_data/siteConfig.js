@@ -1,9 +1,9 @@
 module.exports = {
-  title: "一名地球 online 玩家的个人名片",
+  title: "dengjunyu",
   description: "我的互联网名片 —— 关于我、联系方式与更多",
   url: process.env.SITE_URL || "https://dengjunyu.com",
   language: "zh-CN",
-  about: "一个人类",
+  about: "一名地球Online玩家",
 
   // 作者信息（用于 JSON-LD 结构化数据）
   author: {

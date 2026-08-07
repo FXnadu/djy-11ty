@@ -8,7 +8,7 @@
   <main class="container">
     {% block content %}{% endblock %}
   </main>
-  {% include "partials/site-footer.njk" %}
+  {% if showFooter !== false %}{% include "partials/site-footer.njk" %}{% endif %}
   {% if showHeader %}<script src="/assets/js/header-scroll.js" defer></script>{% endif %}
   <script src="/assets/js/ascii-bg.js" defer></script>
 </body>
