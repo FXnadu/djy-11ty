@@ -19,6 +19,8 @@
   line-height: .94;
   letter-spacing: -.025em;
   color: var(--ink);
+  /* 动画期间乱码字符宽度不定，禁止换行 */
+  white-space: nowrap;
 }
 
 .hero-desc {
