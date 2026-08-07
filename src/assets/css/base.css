@@ -17,6 +17,8 @@
   --grey-1: #eaeae5;
   --grey-2: #d0d0cb;
   --grey-3: #737373;
+  --grey-1-5: #dddcd8; /* 介于 grey-1 与 grey-2 之间（淡色分隔线） */
+  --grey-2-5: #a1a19f; /* 介于 grey-2 与 grey-3 之间（淡色文字） */
   --sans: "Inter", "PingFang SC", "Microsoft YaHei", "Noto Sans SC", sans-serif;
   --sans-display: "Inter", "PingFang SC", "Microsoft YaHei", "Noto Sans SC", sans-serif;
   --mono: "SF Mono", "Fira Code", "Consolas", monospace;
