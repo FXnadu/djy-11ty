@@ -7,13 +7,25 @@ showHeader: true
 {% extends "layouts/base.njk" %}
 
 {% block content %}
-<section class="section">
+<section class="section section-intro">
   <div class="section-header">
-    <h2>留言</h2>
+    <h2>留言 <span class="comment-count" id="comment-count"></span></h2>
     <span class="t-meta">Guestbook</span>
   </div>
   <div class="about-content">
     <p class="about-text">欢迎留下你的足迹。</p>
   </div>
 </section>
+
+<section class="section section-comments" id="dwx-comment-section">
+  <div id="dwx-comment"
+       data-page-id="/guestbook/"
+       data-server="https://cmt.dengjunyu.com"
+       data-site="dengjunyu">
+  </div>
+</section>
+<link rel="stylesheet" href="https://cmt.dengjunyu.com/comment/comment.css?v=20260808">
+<script src="https://cmt.dengjunyu.com/comment/comment.js?v=20260808" defer></script>
+<script src="/assets/js/guestbook-count.js" defer></script>
+<script src="/assets/js/sort-expand.js" defer></script>
 {% endblock %}

@@ -25,9 +25,9 @@ module.exports = {
   },
   contacts: [
     { name: "GitHub", value: "FXnadu", url: "https://github.com/FXnadu" },
-    { name: "Blog", value: "me.dengjunyu.com", url: "https://me.dengjunyu.com" },
+    { name: "Blog", value: "me", url: "https://me.dengjunyu.com" },
     { name: "Email", value: "hello@dengjunyu.com" },
     { name: "微信", value: "deepwhitex_" },
-    { name: "QQ", value: "2035083310" },
+    { name: "QQ", value: "1703452231" },
   ]
 };

@@ -126,11 +126,30 @@
 @media (max-width: 768px) {
   .home-hero-split {
     grid-template-columns: 1fr;
+    min-height: 0;
   }
 
   .hero-content {
     padding: var(--sp-8) var(--sp-6);
-    min-height: 50vh;
+    min-height: 55vh;
+  }
+
+  /* 移动端标题略放大并随屏宽缩放，避免解码动画时横向溢出 */
+  .hero-heading {
+    font-size: min(9vw, 13vh);
+  }
+}
+
+/* 小屏手机：rule-item 改为上下结构，数字字号放大 */
+@media (max-width: 480px) {
+  .rule-item {
+    grid-template-columns: 1fr;
+    gap: var(--sp-3);
+    padding: var(--sp-5) 0;
+  }
+
+  .rule-num {
+    font-size: min(7vw, 7vh);
   }
 }
 
@@ -148,6 +167,8 @@
    而版权/备案那行 footer-meta 仍被推到首屏下方，用户看不到 */
 .not-found {
   min-height: calc(100vh - (var(--sp-6) * 2 + 1.4rem) - 220px);
+  /* 移动端地址栏收展导致 100vh 偏大，优先使用动态视口高度 */
+  min-height: calc(100dvh - (var(--sp-6) * 2 + 1.4rem) - 220px);
   display: flex;
   flex-direction: column;
   align-items: center;

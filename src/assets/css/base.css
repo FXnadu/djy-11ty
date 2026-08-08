@@ -9,6 +9,11 @@
   padding: 0;
 }
 
+img {
+  max-width: 100%;
+  height: auto;
+}
+
 :root {
   --paper: #f5f5f0;
   --paper-rgb: 245, 245, 240;
@@ -41,6 +46,13 @@ html {
   scrollbar-width: thin;
   scrollbar-color: var(--grey-2) transparent;
   scroll-behavior: smooth;
+  /* 防止任何横向溢出引发整页横向滚动（clip 不产生滚动容器，不破坏 fixed 定位） */
+  overflow-x: clip;
+  /* 去掉移动端点击高亮，改用 :focus-visible 提供可访问焦点样式 */
+  -webkit-tap-highlight-color: transparent;
+  /* 防止 iOS 在横向排版时自动放大字号 */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 ::-webkit-scrollbar {
@@ -70,6 +82,7 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  min-height: 100dvh;
 }
 
 body.has-header {
@@ -81,6 +94,14 @@ body.has-header {
   max-width: var(--max-width);
   margin: 0 auto;
   padding: 0 var(--sp-7);
+}
+
+/* iOS 刘海屏 / 底部横条安全区：容器左右留白不小于安全区 */
+@supports (padding: env(safe-area-inset-left)) {
+  .container {
+    padding-left: max(var(--sp-7), env(safe-area-inset-left));
+    padding-right: max(var(--sp-7), env(safe-area-inset-right));
+  }
 }
 
 main {
@@ -156,7 +177,7 @@ a:hover {
   margin: var(--sp-9) 0;
 }
 
-/* Responsive */
+/* Responsive — 平板及以下：收紧间距，标题/正文改为按屏宽缩放（避免过小） */
 @media (max-width: 768px) {
   :root {
     --sp-7: 24px;
@@ -165,4 +186,26 @@ a:hover {
     --sp-10: 48px;
     --sp-11: 64px;
   }
+
+  h1 { font-size: min(7vw, 8.5vh); }
+  h2 { font-size: min(4.4vw, 4.8vh); }
+  h3 { font-size: min(2.8vw, 3.2vh); }
+  .lead { font-size: min(2.5vw, 2.8vh); }
+}
+
+/* Responsive — 小屏手机（≤480px）：进一步收紧间距与字号 */
+@media (max-width: 480px) {
+  :root {
+    --sp-5: 14px;
+    --sp-6: 16px;
+    --sp-7: 20px;
+    --sp-8: 28px;
+    --sp-9: 36px;
+    --sp-10: 40px;
+    --sp-11: 48px;
+  }
+
+  h1 { font-size: min(8vw, 9vh); }
+  h2 { font-size: min(5vw, 5.4vh); }
+  .lead { font-size: min(3vw, 3.2vh); }
 }

@@ -79,15 +79,70 @@
   flex-shrink: 0;
 }
 
+.comment-count {
+  font-size: 0.5em;
+  font-weight: 400;
+  color: var(--grey-3);
+  margin-left: 0.5em;
+  vertical-align: baseline;
+}
+
 /* About section */
 .about-content {
-  max-width: 65ch;
+  max-width: 90ch;
+  margin: 0 auto;
 }
 
 .about-text {
   font-size: 1.1rem;
   line-height: 1.8;
   color: var(--grey-3);
+}
+
+/* Guestbook intro — tighten vertical spacing */
+.section-intro {
+  padding-bottom: var(--sp-5);
+}
+
+.section-intro .about-content {
+  margin: 0 auto;
+  padding-top: 0;
+}
+
+.section-intro .about-text {
+  margin: 0;
+}
+
+/* Comments (guestbook) — tighten gap to the intro text */
+.section-comments {
+  padding-top: 0;
+  max-width: 90ch;
+  margin: 0 auto;
+}
+
+/* Hide the remote comment widget's own "评论" heading — page already has one */
+.lc-title {
+  display: none !important;
+}
+
+/* Sort dropdown — relocated below the comment form, above the list */
+#dwx-comment .lc-sort {
+  margin: 0 0 var(--sp-4);
+}
+
+/* 留言组件（远程样式，不受本项目控制）——移动端防横向溢出 */
+#dwx-comment {
+  min-width: 0;
+  overflow-wrap: break-word;
+}
+#dwx-comment img {
+  max-width: 100%;
+  height: auto;
+}
+#dwx-comment pre,
+#dwx-comment code {
+  white-space: pre-wrap;
+  word-break: break-word;
 }
 
 /* Contact grid */
@@ -278,6 +333,47 @@
 @media (max-width: 768px) {
   .site-header nav {
     gap: var(--sp-5);
+  }
+}
+
+/* Mobile — 小屏手机：压缩 header，避免标题与导航溢出 */
+@media (max-width: 480px) {
+  .site-title {
+    font-size: 1.15rem;
+  }
+
+  .site-header nav {
+    gap: var(--sp-4);
+  }
+
+  .site-header nav a {
+    font-size: 0.7rem;
+  }
+
+  .footer-meta {
+    font-size: 0.65rem;
+  }
+}
+
+/* Touch devices — 加大点击区域（触屏设备才生效，不影响桌面 hover 布局） */
+@media (hover: none) {
+  .site-header nav a,
+  .contact-copy,
+  .footer-link {
+    padding: 6px 0;
+  }
+}
+
+/* iOS safe areas — header 避开刘海/状态栏，footer 避开底部横条 */
+@supports (padding-top: env(safe-area-inset-top)) {
+  .site-header {
+    padding-top: max(var(--sp-6), env(safe-area-inset-top));
+  }
+}
+
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+  .site-footer {
+    padding-bottom: max(var(--sp-8), env(safe-area-inset-bottom));
   }
 }
 

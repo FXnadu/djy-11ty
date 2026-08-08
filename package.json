@@ -6,8 +6,8 @@
   "scripts": {
     "start": "node scripts/generate-fonts.js && eleventy --serve",
     "clean": "node -e \"require('node:fs').rmSync('_site', { recursive: true, force: true })\"",
-    "build": "npm run clean && node scripts/generate-fonts.js && NODE_ENV=production eleventy",
-    "debug": "DEBUG=* eleventy",
+    "build": "npm run clean && node scripts/generate-fonts.js && cross-env NODE_ENV=production eleventy",
+    "debug": "cross-env DEBUG=* eleventy",
     "test": "vitest run",
     "fonts:generate": "node scripts/generate-fonts.js"
   },
@@ -34,6 +34,7 @@
   },
   "devDependencies": {
     "@mermaid-js/mermaid-cli": "^11.4.1",
+    "cross-env": "^10.1.0",
     "mermaid": "^11.4.1",
     "vitest": "^4.1.7"
   }
