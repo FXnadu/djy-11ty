@@ -23,6 +23,28 @@
   white-space: nowrap;
 }
 
+/* thinking 阶段：文字内部一层朦胧光带，由 JS 驱动从左到右匀速扫过
+   亮度随省略号点数呼吸，两者同源，不会各走各的 */
+.hero-heading--shine {
+  background-image: linear-gradient(
+    90deg,
+    var(--ink) 32%,
+    #5c5c5c 44%,
+    #b0b0b0 50%,
+    #5c5c5c 56%,
+    var(--ink) 68%
+  );
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  /* 行高保持不变（避免动画前后布局跳动）；
+     仅扩展底部绘制区域让 g 下伸部不被 background-clip:text 裁剪，
+     再用负 margin 抵消，保证占用空间与正常状态完全一致 */
+  padding-bottom: 0.25em;
+  margin-bottom: -0.25em;
+}
+
 .hero-desc {
   font-family: var(--sans);
   font-size: max(13px, 1vw);
@@ -41,7 +63,6 @@
   min-height: 80vh;
   margin-bottom: var(--sp-10);
   position: relative;
-  overflow: hidden;
 }
 
 .home-hero-split canvas.ascii-bg {
@@ -52,6 +73,13 @@
   pointer-events: none;
   z-index: 0;
   opacity: .4;
+  overflow: hidden;
+  /* thinking 动画结束后淡入出现 */
+  transition: opacity 1.4s ease;
+}
+
+.home-hero-split canvas.ascii-bg.is-hidden {
+  opacity: 0;
 }
 
 .hero-content {

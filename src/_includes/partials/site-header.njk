@@ -1,11 +1,11 @@
 <header class="site-header">
   <div class="container">
-    <a href="/" class="site-title">
-      <span class="site-title-text">Business Card</span>
+    <a href="/guestbook/" class="site-title">
+      <span class="site-title-text">{% if page.url == "/" %}Man on the Moon{% else %}Invitation{% endif %}</span>
     </a>
     <nav>
       <a href="/">Home</a>
-      <a href="/guestbook/">Guestbook</a>
+      <a href="/guestbook/">留言</a>
     </nav>
   </div>
 </header>
