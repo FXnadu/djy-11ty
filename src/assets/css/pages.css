@@ -55,7 +55,7 @@
 }
 
 .hero-content {
-  grid-column: 1;
+  grid-column: 1 / -1;
   color: var(--ink);
   padding: var(--sp-10) var(--sp-8);
   display: flex;
