@@ -8,6 +8,13 @@
   var ORIGINAL = heading.textContent;
   if (!ORIGINAL) return;
 
+  // 复用已有的文本节点，避免每次更新都新建 DOM 文本节点
+  var textNode = heading.firstChild;
+  if (!textNode || textNode.nodeType !== 3) {
+    textNode = document.createTextNode('');
+    heading.appendChild(textNode);
+  }
+
   var CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789<>/\\|()=+-*~^!?@';
   var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -33,13 +40,15 @@
 
   function easeOutCubic(v) { return 1 - Math.pow(1 - v, 3); }
 
+  var lastText = null;
+
   function render(now) {
     var t = (now - t0) / 1000;
     var done = t >= T_DECODE_END;
 
     if (done) {
       // 动画结束，定格原文并停止渲染
-      heading.textContent = ORIGINAL;
+      textNode.data = ORIGINAL;
       raf = 0;
       return;
     }
@@ -83,13 +92,18 @@
       }
     }
 
-    heading.textContent = display.join('');
+    // 文本没有变化时跳过 DOM 写入，避免无谓的大字号重排/重绘
+    var s = display.join('');
+    if (s !== lastText) {
+      lastText = s;
+      textNode.data = s;
+    }
   }
 
   var raf = 0;
   var t0 = 0;
   if (reduced) {
-    heading.textContent = ORIGINAL;
+    textNode.data = ORIGINAL;
   } else {
     t0 = performance.now();
     raf = requestAnimationFrame(render);
