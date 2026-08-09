@@ -70,7 +70,6 @@
     if (heroCanvas && !canvasHidden) {
       canvasHidden = true;
       heroCanvas.classList.add(HIDE_CANVAS);
-      heroCanvas.style.opacity = '0';  // 内联覆盖 .js 默认隐藏，确保隐藏态稳定
     }
   }
 
@@ -78,8 +77,6 @@
     if (heroCanvas && canvasHidden) {
       canvasHidden = false;
       heroCanvas.classList.remove(HIDE_CANVAS);
-      // 内联覆盖 .js 默认隐藏（opacity: 0），触发 CSS transition 淡入
-      heroCanvas.style.opacity = '0.4';
     }
   }
 
@@ -203,8 +200,8 @@
     heading.style.opacity = '1';
     textNode.data = ORIGINAL;
     if (heroCanvas) {
+      // 画布默认带 is-hidden，此处移除类名即可显示
       heroCanvas.classList.remove(HIDE_CANVAS);
-      heroCanvas.style.opacity = '0.4';  // 覆盖 .js 默认隐藏，直接显示画布
     }
   } else {
     // 初始隐藏：thinking 阶段背景画布不显示，结束后再淡入

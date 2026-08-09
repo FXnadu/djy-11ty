@@ -88,12 +88,6 @@
   opacity: 0;
 }
 
-/* JS 可用时画布默认隐藏：避免首帧绘制后、defer 脚本执行前的窗口期闪现背景。
-   显示与否由 hero-decode.js 用内联 opacity 接管（内联样式覆盖此默认值） */
-.js .home-hero-split canvas.ascii-bg {
-  opacity: 0;
-}
-
 .hero-content {
   grid-column: 1 / -1;
   color: var(--ink);
