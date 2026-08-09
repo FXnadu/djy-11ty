@@ -1,6 +1,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#f5f5f0">
+
+{#- 在首帧绘制前标记 JS 可用，CSS 据此默认隐藏动画元素，避免首帧闪现最终文案 -#}
+<script>document.documentElement.classList.add('js');</script>
 <title>{% if title and title != siteConfig.title %}{{ title }} - {{ siteConfig.title }}{% else %}{{ siteConfig.title }}{% endif %}</title>
 
 {#- SEO / GEO 标签（OG、Canonical、JSON-LD 等） -#}

@@ -23,6 +23,12 @@
   white-space: nowrap;
 }
 
+/* JS 可用时标题默认隐藏，由 hero-decode.js 从 thinking 淡入开始接管；
+   否则首帧会先渲染出最终文案，加载瞬间闪现后再消失。无 JS 时保持可见 */
+.js .hero-heading {
+  opacity: 0;
+}
+
 /* thinking 阶段：文字内部一层朦胧光带，由 JS 驱动从左到右匀速扫过
    亮度随省略号点数呼吸，两者同源，不会各走各的 */
 .hero-heading--shine {
