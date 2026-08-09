@@ -205,11 +205,13 @@
 }
 
 /* Guestbook — "reply" 文字 / 高亮动画，二选一。
-   带 #comment-N 的链接跳转命中后，组件会给目标评论卡片加上
-   .lc-highlight 类并播放高亮动画。这里不改组件 DOM：
-   - 视口足够宽（放得下完整 "reply"）：显示卡片左缘中间的横向文字，
-     同时关掉组件的高亮动画（有 reply 就不闪）；
-   - 视口放不下完整文字：不显示 reply，保留组件的高亮动画。 */
+   博客侧脚本 hash-reply.js 会在目标评论（#comment-N）渲染出来时提前
+   打上 lc-reply-target 标记，这里用纯 CSS 伪元素显示标识：
+   - 视口足够宽（放得下完整 "reply"）：显示卡片左缘中间的横向文字；
+     组件滚动到位后仍会给卡片加 .lc-highlight，此时关掉它的动画（不闪）；
+   - 视口放不下完整文字：不显示 reply，组件的高亮动画原样保留。
+   为什么不用 CSS :target：fragment 目标只在页面导航那一刻解析，评论是
+   异步渲染的，浏览器不会为后插入的元素补设 :target，只能靠脚本等 DOM 出现。 */
 
 /* 组件自己的 .lc-comment 没有定位上下文，先补上 */
 .lc-comment {
@@ -219,7 +221,7 @@
 /* 宽屏：卡片左缘中间、盒子外侧的横向 "reply"（5.4rem 实测约 213px 宽，
    评论区 90ch 居中时视口 ≥1280px 才有足够左侧空间） */
 @media (min-width: 1280px) {
-  .lc-comment.lc-highlight::before {
+  .lc-comment.lc-reply-target::before {
     content: "reply";
     position: absolute;
     top: 50%;
@@ -237,12 +239,5 @@
   /* 有 reply 文字，就不再播高亮动画 */
   .lc-comment.lc-highlight {
     animation: none !important;
-  }
-}
-
-/* 窄屏：放不下完整文字，隐藏 reply，保留组件的高亮动画 */
-@media (max-width: 1279px) {
-  .lc-comment.lc-highlight::before {
-    content: none;
   }
 }
