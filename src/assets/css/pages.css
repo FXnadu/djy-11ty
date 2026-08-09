@@ -203,3 +203,46 @@
   justify-content: center;
   text-align: center;
 }
+
+/* Guestbook — "reply" 文字 / 高亮动画，二选一。
+   带 #comment-N 的链接跳转命中后，组件会给目标评论卡片加上
+   .lc-highlight 类并播放高亮动画。这里不改组件 DOM：
+   - 视口足够宽（放得下完整 "reply"）：显示卡片左缘中间的横向文字，
+     同时关掉组件的高亮动画（有 reply 就不闪）；
+   - 视口放不下完整文字：不显示 reply，保留组件的高亮动画。 */
+
+/* 组件自己的 .lc-comment 没有定位上下文，先补上 */
+.lc-comment {
+  position: relative !important;
+}
+
+/* 宽屏：卡片左缘中间、盒子外侧的横向 "reply"（5.4rem 实测约 213px 宽，
+   评论区 90ch 居中时视口 ≥1280px 才有足够左侧空间） */
+@media (min-width: 1280px) {
+  .lc-comment.lc-highlight::before {
+    content: "reply";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translate(calc(-100% - 0.9rem), -50%);
+    font-family: var(--sans);
+    font-size: 5.4rem;
+    font-weight: 200;
+    line-height: 1;
+    letter-spacing: 0.04em;
+    color: var(--ink);
+    white-space: nowrap;
+  }
+
+  /* 有 reply 文字，就不再播高亮动画 */
+  .lc-comment.lc-highlight {
+    animation: none !important;
+  }
+}
+
+/* 窄屏：放不下完整文字，隐藏 reply，保留组件的高亮动画 */
+@media (max-width: 1279px) {
+  .lc-comment.lc-highlight::before {
+    content: none;
+  }
+}
