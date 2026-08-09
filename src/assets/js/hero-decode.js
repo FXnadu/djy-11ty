@@ -70,6 +70,7 @@
     if (heroCanvas && !canvasHidden) {
       canvasHidden = true;
       heroCanvas.classList.add(HIDE_CANVAS);
+      heroCanvas.style.opacity = '0';  // 内联覆盖 .js 默认隐藏，确保隐藏态稳定
     }
   }
 
@@ -77,6 +78,8 @@
     if (heroCanvas && canvasHidden) {
       canvasHidden = false;
       heroCanvas.classList.remove(HIDE_CANVAS);
+      // 内联覆盖 .js 默认隐藏（opacity: 0），触发 CSS transition 淡入
+      heroCanvas.style.opacity = '0.4';
     }
   }
 
@@ -199,6 +202,10 @@
     // 系统减少动效或本会话已播放过：直接显示原文，画布保持可见
     heading.style.opacity = '1';
     textNode.data = ORIGINAL;
+    if (heroCanvas) {
+      heroCanvas.classList.remove(HIDE_CANVAS);
+      heroCanvas.style.opacity = '0.4';  // 覆盖 .js 默认隐藏，直接显示画布
+    }
   } else {
     // 初始隐藏：thinking 阶段背景画布不显示，结束后再淡入
     hideCanvas();
