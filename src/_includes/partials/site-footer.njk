@@ -1,0 +1,19 @@
+{% set currentYear = "now" | dateFormat("yyyy") %}
+{% set siteUrl = siteConfig.url | replace("https://", "") | replace("http://", "") %}
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-masthead">
+      <div class="footer-masthead-top">
+        <a class="footer-domain" href="/">{{ siteUrl }}</a>
+        <p class="footer-tagline">{{ siteConfig.footer.tagline }}</p>
+      </div>
+      <div class="footer-masthead-bottom">
+        <span class="footer-credit">&copy; {{ siteConfig.footer.siteSince }}{% if currentYear != siteConfig.footer.siteSince %}–{{ currentYear }}{% endif %} {{ siteConfig.footer.copyrightHolder }}</span>
+        <a class="footer-credit footer-link" href="{{ siteConfig.footer.icpUrl }}" target="_blank" rel="noopener">{{ siteConfig.footer.icp }}</a>
+        <a class="footer-credit footer-link" href="{{ siteConfig.footer.licenseUrl }}" target="_blank" rel="noopener">{{ siteConfig.footer.license }}</a>
+        <span class="footer-credit">Last built {{ "now" | dateFormat }}</span>
+      </div>
+    </div>
+  </div>
+</footer>

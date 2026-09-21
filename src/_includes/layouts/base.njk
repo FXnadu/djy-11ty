@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  {% include "partials/head.njk" %}
+</head>
+<body>
+  {% include "partials/site-header.njk" %}
+  <main class="container">
+    {% block content %}{% endblock %}
+  </main>
+  {% include "partials/site-footer.njk" %}
+  <button type="button" class="back-to-top" aria-label="回到顶部">
+    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.25" aria-hidden="true"><path d="M6 10.5V1.5M2 5.5L6 1.5 10 5.5"/></svg>
+  </button>
+  <script src="/assets/js/ascii-bg.js" defer></script>
+  <script src="/assets/js/header-scroll.js" defer></script>
+  <script src="/assets/js/back-to-top.js" defer></script>
+</body>
+</html>

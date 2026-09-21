@@ -1,0 +1,104 @@
+/* Prism.js — Swiss International Style (monochrome) */
+
+code[class*="language-"],
+pre[class*="language-"] {
+  font-family: "SF Mono", "Fira Code", "Consolas", monospace;
+  font-size: 0.85rem;
+  line-height: 1.7;
+  color: var(--ink);
+  text-shadow: none;
+  tab-size: 2;
+  hyphens: none;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+}
+
+pre[class*="language-"] {
+  background: var(--grey-1);
+  padding: var(--sp-6);
+  margin-bottom: var(--sp-7);
+  overflow-x: auto;
+  border-left: 2px solid var(--ink);
+}
+
+:not(pre) > code[class*="language-"] {
+  padding: 0.15em 0.4em;
+  background: var(--grey-1);
+}
+
+/* Token colors — monochrome hierarchy */
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+  color: var(--grey-3);
+  font-style: italic;
+}
+
+.token.punctuation {
+  color: var(--grey-3);
+}
+
+.token.namespace {
+  opacity: 0.8;
+}
+
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol {
+  font-weight: 600;
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin {
+  color: var(--ink);
+  font-weight: 400;
+}
+
+.token.operator,
+.token.entity,
+.token.url {
+  color: var(--grey-3);
+}
+
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.8em;
+  letter-spacing: 0.04em;
+}
+
+.token.function,
+.token.class-name {
+  font-weight: 600;
+}
+
+.token.regex,
+.token.important,
+.token.variable {
+  font-weight: 400;
+}
+
+.token.important,
+.token.bold {
+  font-weight: 600;
+}
+
+.token.italic {
+  font-style: italic;
+}
+
+/* Line highlighting */
+.line-highlight {
+  background: rgba(10, 10, 10, 0.06);
+  border-left: 2px solid var(--ink);
+}
