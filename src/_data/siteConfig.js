@@ -18,7 +18,7 @@ module.exports = {
     siteSince: 2025,
     copyrightHolder: "dengjunyu",
 
-    designBy: "deepwhitex",
+    designBy: "me",
     tagline: "— Always chasing Better.",
     icp: "粤ICP备2025426509号-4",
     icpUrl: "https://beian.miit.gov.cn/"
