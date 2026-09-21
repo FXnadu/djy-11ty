@@ -19,7 +19,7 @@ module.exports = {
     copyrightHolder: "dengjunyu",
     license: "CC BY-NC-SA 4.0",
     licenseUrl: "https://creativecommons.org/licenses/by-nc-sa/4.0/",
-    tagline: "— Always chasing Better.",
+    tagline: "— Everything. Nothing. Whatever.",
     icp: "粤ICP备2025426509号-4",
     icpUrl: "https://beian.miit.gov.cn/"
   },
