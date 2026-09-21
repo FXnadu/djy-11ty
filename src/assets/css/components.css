@@ -258,18 +258,82 @@
 }
 
 .footer-domain {
+  /* 需要容纳字体上半高 + 下半高 + descender，1.4em 给 Inter/PingFang 等留足余量，
+     避免翻牌窗口裁掉 y/j/g/q 等字母的下伸部 */
+  --flip-h: 1.4em;
+
+  display: inline-block;
   font-family: var(--sans-display);
   font-size: clamp(1.4rem, 3vw, 2rem);
   font-weight: 200;
   letter-spacing: -0.03em;
-  line-height: 1.1;
+  line-height: var(--flip-h);
   color: var(--ink);
+  border-bottom: none;
+  transition: color 0.3s ease;
+}
+
+.footer-domain-clip {
+  display: block;
+  overflow: hidden;
+  height: var(--flip-h);
+}
+
+.footer-domain-face {
+  display: block;
+  height: var(--flip-h);
+  line-height: var(--flip-h);
+  transition: transform 0.45s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.footer-domain:focus-visible .footer-domain-face {
+  transform: translateY(-100%);
+}
+
+.footer-domain:focus-visible {
+  color: var(--grey-3);
   border-bottom: none;
 }
 
-.footer-domain:hover {
+.footer-domain-note {
+  margin: var(--sp-3) 0 0;
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.04em;
+  line-height: 1.6;
   color: var(--grey-3);
-  border-bottom: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.footer-domain:focus-visible ~ .footer-domain-note {
+  opacity: 1;
+}
+
+/* 翻牌只在支持 hover、主指针为精确指针(鼠标)的设备、且未检测到触摸的会话中启用。
+   html:not(.no-footer-hover) 由 footer-hover.js 在检测到触摸后移除翻牌手势，
+   规避触屏 tap 粘滞 hover 与混合设备的误翻牌。 */
+@media (hover: hover) and (pointer: fine) {
+  html:not(.no-footer-hover) .footer-domain:hover .footer-domain-face {
+    transform: translateY(-100%);
+  }
+
+  html:not(.no-footer-hover) .footer-domain:hover {
+    color: var(--grey-3);
+    border-bottom: none;
+  }
+
+  html:not(.no-footer-hover) .footer-domain:hover ~ .footer-domain-note {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .footer-domain,
+  .footer-domain-face,
+  .footer-domain-note {
+    transition: none;
+  }
 }
 
 .footer-tagline {

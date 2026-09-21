@@ -1,11 +1,20 @@
 {% set currentYear = "now" | dateFormat("yyyy") %}
 {% set siteUrl = siteConfig.url | replace("https://", "") | replace("http://", "") %}
+{% set alternateUrl = siteConfig.footer.alternateUrl | replace("https://", "") | replace("http://", "") %}
 
 <footer class="site-footer">
   <div class="container">
     <div class="footer-masthead">
       <div class="footer-masthead-top">
-        <a class="footer-domain" href="/">{{ siteUrl }}</a>
+        <div class="footer-domain-block">
+          <a class="footer-domain" href="/" aria-label="{{ siteUrl }}">
+            <span class="footer-domain-clip" aria-hidden="true">
+              <span class="footer-domain-face">{{ siteUrl }}</span>
+              <span class="footer-domain-face">{{ alternateUrl }}</span>
+            </span>
+          </a>
+          <p class="footer-domain-note">同一站点 · 亦可通过 {{ alternateUrl }} 访问</p>
+        </div>
         <p class="footer-tagline">{{ siteConfig.footer.tagline }}</p>
       </div>
       <div class="footer-masthead-bottom">

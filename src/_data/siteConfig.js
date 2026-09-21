@@ -15,6 +15,8 @@ module.exports = {
   defaultImage: "",
 
   footer: {
+    // 备用域名（页脚域名悬停翻牌展示）
+    alternateUrl: "https://dengjunyu.cn",
     siteSince: 2025,
     copyrightHolder: "dengjunyu",
 
