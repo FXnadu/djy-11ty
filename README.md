@@ -37,6 +37,7 @@ One Eleventy build produces two sites: the main personal site and the writing su
 - Posts inherit their writing layout and the `post` tag from `src/content/writing/posts/posts.11tydata.js`, which also derives a date-based permalink such as `/writing/posts/20260327/`; posts sharing a day get an incrementing suffix.
 - Photography year files set `permalink: false` in `src/content/photos/photos.11tydata.js`, so they produce no standalone pages and render through the `photoYears` collection on the shutter page.
 - Use `tags: [post, ...]` for posts. The base `post` tag is excluded from public tag lists.
+- Tag URLs use ASCII slugs: plain ASCII tags normalize on the fly, while tags with non-ASCII characters must be registered in `eleventy/config/tag-slugs.js`. An unregistered tag fails the build.
 - Numeric tags are treated as year-like tags in the gene views.
 - Dates should use `YYYY-MM-DD` in front matter.
 - Mermaid is loaded from the local `mermaid` npm package output, not a runtime CDN.

@@ -5,7 +5,7 @@
   if (!tocList) return;
 
   var links = tocList.querySelectorAll("a");
-  if (links.length < 2) return;
+  if (links.length < 5) return;
 
   var content = document.querySelector(".post-content");
   var header = document.querySelector(".site-header");

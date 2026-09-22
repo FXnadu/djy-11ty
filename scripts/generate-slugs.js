@@ -46,7 +46,17 @@ function readPosts() {
 
 function main() {
   const posts = readPosts();
-  const used = new Set(posts.map((post) => post.data.slug).filter(Boolean));
+
+  // gray-matter 会把 yaml 里形如 20260327 的值解析成 number，
+  // 必须统一成字符串，否则 used.has("20260327") 对已存在的 20260327(number) 恒为 false，
+  // 导致同日新增文章拿到与旧文章相同的 slug。
+  const used = new Set(
+    posts
+      .map((post) => post.data.slug)
+      .filter((slug) => slug !== undefined && slug !== null)
+      .map(String)
+      .filter(Boolean)
+  );
   let created = 0;
 
   for (const post of posts) {

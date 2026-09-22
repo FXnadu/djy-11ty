@@ -23,7 +23,7 @@
       {{ content | safe }}
     </div>
   </article>
-  <aside class="post-sidebar" aria-label="目录">{% if tocHeadings | length > 1 %}<nav class="toc" aria-label="目录"><p class="toc-title t-cat">目录</p><ol class="toc-list">{% for h in tocHeadings %}<li class="toc-item{% if h.level == 3 %} toc-sub{% endif %}"><a href="#{{ h.id }}">{{ h.text | safe }}</a></li>{% endfor %}</ol></nav>{% endif %}</aside>
+  <aside class="post-sidebar" aria-label="目录">{% if tocHeadings | length > 4 %}<nav class="toc" aria-label="目录"><p class="toc-title t-cat">目录</p><ol class="toc-list">{% for h in tocHeadings %}<li class="toc-item{% if h.level == 3 %} toc-sub{% endif %}"><a href="#{{ h.id }}">{{ h.text | safe }}</a></li>{% endfor %}</ol></nav>{% endif %}</aside>
 </div>
 <script src="/assets/js/writing/toc-highlight.js" defer></script>
 <script src="/assets/js/writing/footnote-preview.js" defer></script>

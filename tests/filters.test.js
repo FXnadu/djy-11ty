@@ -26,14 +26,16 @@ describe("filters", () => {
     expect(eleventyConfig.registeredFilters.dateISO(null)).toBe("");
   });
 
-  it("creates URL-safe slugs for mixed-language tags", () => {
+  it("creates ASCII slugs for tags", () => {
     const eleventyConfig = createEleventyConfig();
     filters.registerFilters(eleventyConfig);
+    const { tagSlug } = eleventyConfig.registeredFilters;
 
-    expect(eleventyConfig.registeredFilters.tagSlug("React Hooks")).toBe("react-hooks");
-    expect(eleventyConfig.registeredFilters.tagSlug("技术/随笔")).toBe("技术-随笔");
-    expect(eleventyConfig.registeredFilters.tagSlug("  DevOps + Docker  ")).toBe("devops-docker");
-    expect(eleventyConfig.registeredFilters.tagSlug(null)).toBe("");
+    expect(tagSlug("React Hooks")).toBe("react-hooks");
+    expect(tagSlug("  DevOps + Docker  ")).toBe("devops-docker");
+    expect(tagSlug("健康")).toBe("health");
+    expect(tagSlug(null)).toBe("");
+    expect(() => tagSlug("未登记的标签")).toThrow(/缺少 ASCII 映射/);
   });
 
   it("normalizes single values into arrays for layout injection", () => {
