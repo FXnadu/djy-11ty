@@ -1,0 +1,40 @@
+{
+  "name": "djy-11ty",
+  "version": "1.0.0",
+  "description": "DJY - Eleventy static site",
+  "main": "eleventy.config.js",
+  "scripts": {
+    "start": "node scripts/generate-fonts.js && eleventy --serve",
+    "clean": "node -e \"require('node:fs').rmSync('_site', { recursive: true, force: true })\"",
+    "build": "npm run clean && node scripts/generate-fonts.js && NODE_ENV=production eleventy",
+    "debug": "DEBUG=* eleventy",
+    "test": "vitest run",
+    "fonts:generate": "node scripts/generate-fonts.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "@11ty/eleventy": "^3.1.2",
+    "@11ty/eleventy-plugin-syntaxhighlight": "^5.0.2",
+    "@fontsource/inter": "^5.2.8",
+    "@fontsource/noto-sans-sc": "^5.2.9",
+    "luxon": "^3.7.2",
+    "markdown-it": "^14.1.0",
+    "markdown-it-abbr": "^2.0.0",
+    "markdown-it-anchor": "^9.2.0",
+    "markdown-it-container": "^4.0.0",
+    "markdown-it-deflist": "^3.0.1",
+    "markdown-it-footnote": "^4.0.0",
+    "markdown-it-github-alerts": "^1.0.1",
+    "markdown-it-kbd": "^3.0.2",
+    "markdown-it-mark": "^4.0.0",
+    "markdown-it-task-lists": "^2.1.1"
+  },
+  "devDependencies": {
+    "@mermaid-js/mermaid-cli": "^11.4.1",
+    "mermaid": "^11.4.1",
+    "vitest": "^4.1.7"
+  }
+}

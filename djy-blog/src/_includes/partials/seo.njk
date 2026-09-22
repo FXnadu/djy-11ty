@@ -1,0 +1,58 @@
+{#- SEO & GEO Meta Tags
+    职责：集中管理所有 SEO/GEO 相关标签
+    数据来源：页面 frontmatter (title/description/image) + siteConfig (全局默认)
+    修改方式：调整 siteConfig.js 或页面 frontmatter 即可，无需改模板
+-#}
+
+{#- 计算各字段：页面级 > 站点级 -#}
+{%- set seoTitle = title or siteConfig.title -%}
+
+{#- 分页页面（tags/years）根据 pageData 动态生成 description -#}
+{%- if description -%}
+  {%- set seoDescription = description -%}
+{%- elseif pageData.tag -%}
+  {%- set seoDescription = pageData.tag ~ " 相关文章，共 " ~ pageData.total ~ " 篇。" -%}
+{%- elseif pageData.year -%}
+  {%- set seoDescription = pageData.year ~ " 年的文章，共 " ~ pageData.total ~ " 篇。" -%}
+{%- else -%}
+  {%- set seoDescription = siteConfig.description -%}
+{%- endif -%}
+{%- set seoUrl = siteConfig.url ~ (page.url or "") -%}
+{%- set seoImage = image or siteConfig.defaultImage -%}
+{%- if seoImage -%}
+  {%- if not seoImage.startsWith("http") -%}
+    {%- set seoImage = siteConfig.url ~ seoImage -%}
+  {%- endif -%}
+{%- endif -%}
+{%- set seoAuthor = author or siteConfig.author.name -%}
+
+{#- 核心 Meta -#}
+<meta name="description" content="{{ seoDescription }}">
+<meta name="author" content="{{ seoAuthor }}">
+
+{#- Canonical URL - 告诉搜索引擎和 AI 哪个是权威来源 -#}
+<link rel="canonical" href="{{ seoUrl }}">
+
+{#- Open Graph（国内平台：微信、飞书、即刻等分享预览） -#}
+{%- set isPost = tags and "post" in tags -%}
+<meta property="og:type" content="{% if isPost %}article{% else %}website{% endif %}">
+<meta property="og:title" content="{{ seoTitle }}">
+<meta property="og:description" content="{{ seoDescription }}">
+<meta property="og:url" content="{{ seoUrl }}">
+<meta property="og:site_name" content="{{ siteConfig.title }}">
+<meta property="og:locale" content="{{ siteConfig.language | replace('-', '_') }}">
+{%- if seoImage %}
+<meta property="og:image" content="{{ seoImage }}">
+<meta property="og:image:alt" content="{{ seoTitle }}">
+{%- endif %}
+{%- if isPost and date %}
+<meta property="article:published_time" content="{{ date | dateISO }}">
+<meta property="article:author" content="{{ siteConfig.author.name }}">
+{%- endif %}
+
+{#- JSON-LD 结构化数据（GEO 核心：帮助 AI 理解页面语义）
+   构造页面数据对象传给 jsonLd filter，避免依赖 page 对象中的不确定字段 -#}
+{%- set seoData = { url: page.url, title: seoTitle, description: seoDescription, date: date, image: seoImage, tags: tags } -%}
+<script type="application/ld+json">
+  {{ seoData | jsonLd(siteConfig) | safe }}
+</script>
