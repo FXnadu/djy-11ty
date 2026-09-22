@@ -69,6 +69,21 @@
   opacity: 0;
 }
 
+/* 开场：header 与画布同源，thinking 期间一并藏起，解码开始时同时浮现（见 hero-decode.js）。
+   隐藏态必须带 visibility，否则不可见的导航链接仍会被键盘聚焦、被读屏念出。
+   transition 需保留 shared.css 的 transform，重写简写会把滚动隐藏的过渡丢掉。
+   仅首页（body.hero-intro），其它页 header 照常立即可见。 */
+.js body.hero-intro .site-header {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.8s ease, visibility 0s, transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.js body.hero-intro .site-header.is-revealed {
+  opacity: 1;
+  visibility: visible;
+}
+
 .hero-content {
   grid-column: 1 / -1;
   color: var(--ink);

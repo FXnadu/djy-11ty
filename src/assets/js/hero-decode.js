@@ -3,10 +3,15 @@
   'use strict';
 
   var heading = document.querySelector('.hero-heading');
-  if (!heading) return;
+  var siteHeader = document.querySelector('.site-header');
+  var REVEAL_HEADER = 'is-revealed';
 
-  var ORIGINAL = heading.textContent;
-  if (!ORIGINAL) return;
+  // 没有标题就没有进场动画：header 必须照常可见，否则首页会永久失去导航
+  var ORIGINAL = heading ? heading.textContent : '';
+  if (!ORIGINAL) {
+    if (siteHeader) siteHeader.classList.add(REVEAL_HEADER);
+    return;
+  }
 
   // 复用已有的文本节点，避免每次更新都新建 DOM 文本节点
   var textNode = heading.firstChild;
@@ -80,6 +85,16 @@
     }
   }
 
+  // 站点 header 与画布共用同一个浮现时机（隐藏态由 pages.css 的 body.hero-intro 负责）
+  var headerRevealed = false;
+
+  function revealHeader() {
+    if (siteHeader && !headerRevealed) {
+      headerRevealed = true;
+      siteHeader.classList.add(REVEAL_HEADER);
+    }
+  }
+
   // 光带从左到右扫过，每 2 个省略号周期（约 2.4s）扫一遍。
   // position 限制在 100%→0% 之间：保证渐变始终覆盖文字，
   // 否则 background-clip:text 下文字会在扫描后半段变透明消失
@@ -95,6 +110,10 @@
 
     if (done) {
       // 动画结束，定格原文并停止渲染
+      // 画布与 header 也在这里补一次：标签页在后台时 rAF 会被暂停，
+      // 切回来的首帧可能已经越过 T_DECODE_END，直接走这里而跳过解码分支的显示逻辑
+      showCanvas();
+      revealHeader();
       if (shineOn) { shineOn = false; heading.classList.remove(SHINE_CLASS); }
       heading.style.backgroundPosition = '';
       heading.style.opacity = '1';
@@ -150,7 +169,8 @@
 
     // —— 解码恢复阶段：全乱码保持 → 从左到右缓慢还原 ——
     if (shineOn) { shineOn = false; heading.classList.remove(SHINE_CLASS); }
-    showCanvas();  // thinking 已结束，背景画布淡入
+    showCanvas();   // thinking 已结束，背景画布淡入
+    revealHeader(); // header 与画布同时浮现
     heading.style.opacity = '1';
     var resolved = 0;  // 已解码的字符数（左侧恢复原文，右侧仍乱码）
     var intensity = 0; // 乱码强度 0~1
@@ -196,9 +216,10 @@
   var raf = 0;
   var t0 = 0;
   if (reduced || playedOnce) {
-    // 系统减少动效或本会话已播放过：直接显示原文，画布保持可见
+    // 系统减少动效或本会话已播放过：直接显示原文，画布与 header 保持可见
     heading.style.opacity = '1';
     textNode.data = ORIGINAL;
+    revealHeader();
     if (heroCanvas) {
       // 画布默认带 is-hidden，此处移除类名即可显示
       heroCanvas.classList.remove(HIDE_CANVAS);
