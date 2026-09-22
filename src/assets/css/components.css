@@ -1,28 +1,7 @@
 /* Components — reusable UI pieces
    Header, footer, alerts, etc. */
 
-/* Header */
-.site-header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 100;
-  padding: var(--sp-6) 0;
-  background: var(--paper);
-  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.site-header.is-hidden {
-  transform: translateY(-100%);
-}
-
-.site-header .container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
+/* Header — 通用结构见 shared.css，此处只保留主站专属排版 */
 .site-title {
   display: inline-flex;
   align-items: center;
@@ -33,13 +12,18 @@
   border-bottom: none;
 }
 
-.site-title:hover {
-  border-bottom: none;
+/* 标题内图标与文字垂直居中对齐 */
+.site-title-text {
+  display: inline-flex;
+  align-items: center;
 }
 
-.site-header nav {
-  display: flex;
-  gap: var(--sp-7);
+.site-title-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  margin-right: 0.35em;
 }
 
 .site-header nav a {
@@ -51,32 +35,7 @@
   border-bottom: none;
 }
 
-.site-header nav a:hover {
-  color: var(--ink);
-  border-bottom: none;
-}
-
-/* Sections */
-.section {
-  padding: var(--sp-10) 0;
-}
-
-.section-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  border-bottom: 1px solid var(--ink);
-  padding-bottom: var(--sp-5);
-  margin-bottom: var(--sp-8);
-}
-
-.section-header h2 {
-  font-weight: 200;
-}
-
-.section-header .t-meta {
-  flex-shrink: 0;
-}
+/* Sections — 通用样式见 shared.css */
 
 .comment-count {
   font-size: 0.5em;
@@ -89,12 +48,6 @@
 /* About section */
 .about-content {
   width: 100%;
-}
-
-.about-text {
-  font-size: 1.1rem;
-  line-height: 1.8;
-  color: var(--grey-3);
 }
 
 /* Guestbook intro — tighten vertical spacing */
@@ -143,112 +96,11 @@
   word-break: break-word;
 }
 
-/* Contact grid */
-.contact-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: var(--sp-5);
-}
+/* Contact grid — 见 shared.css */
 
-.contact-item {
-  padding: var(--sp-5) 0;
-  border-bottom: 1px solid var(--grey-2);
-}
+/* GitHub Alerts — 见 shared.css */
 
-.contact-label {
-  display: block;
-  margin-bottom: var(--sp-3);
-}
-
-.contact-value {
-  font-size: 1rem;
-  font-weight: 400;
-}
-
-.contact-copy {
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  gap: var(--sp-3);
-}
-
-.contact-copy::after {
-  content: "";
-  display: inline-block;
-  width: 14px;
-  height: 14px;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23737373' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='9' y='9' width='13' height='13' rx='2' ry='2'/%3E%3Cpath d='M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1'/%3E%3C/svg%3E");
-  background-size: contain;
-  background-repeat: no-repeat;
-  opacity: 0.5;
-  transition: opacity 0.2s;
-  flex-shrink: 0;
-}
-
-.contact-copy:hover::after {
-  opacity: 1;
-}
-
-.contact-copy.copied::after {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23737373' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E");
-  opacity: 1;
-}
-
-/* GitHub Alerts */
-.markdown-alert {
-  border-left: 3px solid var(--grey-2);
-  padding: var(--sp-5) var(--sp-6);
-  margin-bottom: var(--sp-7);
-  background: var(--grey-1);
-}
-
-.markdown-alert p {
-  margin-bottom: 0;
-  max-width: none;
-}
-
-.markdown-alert-title {
-  display: flex;
-  align-items: center;
-  gap: var(--sp-3);
-  font-weight: 600;
-  font-size: 0.8rem;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  margin-bottom: var(--sp-3);
-  color: var(--ink);
-}
-
-.markdown-alert-title svg {
-  flex-shrink: 0;
-  fill: currentColor;
-}
-
-/* Tier 1: informational */
-.markdown-alert-note,
-.markdown-alert-tip {
-  border-left-color: var(--grey-3);
-}
-
-/* Tier 2: action required */
-.markdown-alert-important,
-.markdown-alert-warning,
-.markdown-alert-caution {
-  border-left-color: var(--ink);
-  border-left-width: 4px;
-}
-
-/* Footer — masthead / colophon style */
-.site-footer {
-  padding: var(--sp-10) 0 var(--sp-8);
-  margin-top: var(--sp-10);
-}
-
-.footer-masthead {
-  border-top: 2px solid var(--ink);
-  padding-top: var(--sp-6);
-}
-
+/* Footer — masthead / colophon style — 通用部分见 shared.css */
 .footer-masthead-top {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -336,16 +188,7 @@
   }
 }
 
-.footer-tagline {
-  font-size: 0.85rem;
-  font-weight: 300;
-  line-height: 1.6;
-  color: var(--grey-3);
-  max-width: 36ch;
-  margin: 0;
-  justify-self: end;
-  text-align: right;
-}
+/* .footer-tagline 见 shared.css */
 
 .footer-masthead-bottom {
   display: flex;

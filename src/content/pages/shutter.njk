@@ -1,0 +1,97 @@
+---
+permalink: /shutter/
+title: 摄影
+description: 用镜头记录生活中的美好瞬间。
+heroTitle: 摄影
+heroDescription: 用镜头记录生活中的美好瞬间。
+emptyText: 暂无摄影作品，期待后续更新。
+showHeader: true
+bodyClass:
+  - photography-layout
+  - photo-reveal
+extraCss:
+  - /assets/css/photography-layout.css
+  - /assets/css/photography.css
+extraModuleScripts:
+  - /assets/js/photography/index.js
+afterContainerInclude: components/photo-lightbox.njk
+---
+
+{% extends "layouts/base.njk" %}
+
+{% block content %}
+{% from "components/media-item.njk" import render as mediaItem %}
+
+{% set photoCollections = collections.photoYears %}
+{% set heroSource = '' %}
+{% set heroEntry = photoCollections[0] %}
+{% if heroEntry %}
+  {% set heroMedia = heroEntry.data.mediaItems %}
+  {% if heroMedia and heroMedia.length %}
+    {% set heroFirst = heroMedia[0] %}
+    {% if heroFirst.type == "video" %}
+      {# 视频没有封面时不拿视频地址当图片用 #}
+      {% if heroFirst.poster %}{% set heroSource = heroFirst.poster %}{% endif %}
+    {% else %}
+      {% set heroSource = heroFirst.src %}
+    {% endif %}
+  {% endif %}
+{% endif %}
+{% set heroSrcset = heroSource | ossSrcset([960, 1600, 2400]) %}
+
+{# 入场动画的初始隐藏态由 .photo-reveal 承担，无 JS 时恢复显示 #}
+<noscript><style>body.photo-reveal .photography-item { opacity: 1; }</style></noscript>
+
+<div class="photography-page">
+  <section class="photography-hero">
+    {% if heroSource %}
+    <div class="photography-hero-media" aria-hidden="true">
+      <img
+        src="{{ heroSource | ossImage(1600) }}"
+        {% if heroSrcset %}srcset="{{ heroSrcset }}"
+        sizes="100vw"{% endif %}
+        alt=""
+        fetchpriority="high"
+        loading="eager"
+        decoding="async"
+      >
+    </div>
+    {% endif %}
+    <h1 class="photography-title">{{ heroTitle }}</h1>
+    <p class="photography-description">{{ heroDescription }}</p>
+  </section>
+
+  <section class="photography-gallery">
+    {% if photoCollections and photoCollections.length %}
+      {% for yearEntry in photoCollections %}
+        {% set yearLabel = yearEntry.data.photoYearLabel %}
+        {% set yearMedia = yearEntry.data.mediaItems %}
+        {% if yearMedia and yearMedia.length %}
+          <h2 class="photography-year-heading">{{ yearLabel }}</h2>
+          {% set yearPhotoCount = yearMedia.length %}
+          {% set yearColumnCount = 3 %}
+          {% if yearPhotoCount <= 1 %}
+            {% set yearColumnCount = 1 %}
+          {% elif yearPhotoCount <= 4 %}
+            {% set yearColumnCount = 2 %}
+          {% endif %}
+          <div class="photography-year-grid" style="--photography-columns: {{ yearColumnCount }};">
+            {% for item in yearMedia %}
+              {{ mediaItem(item, yearLabel) }}
+            {% endfor %}
+          </div>
+        {% endif %}
+      {% endfor %}
+    {% else %}
+      <div class="photography-empty">
+        <svg class="photography-empty-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+          <circle cx="8.5" cy="8.5" r="1.5"></circle>
+          <polyline points="21 15 16 10 5 21"></polyline>
+        </svg>
+        <p>{{ emptyText }}</p>
+      </div>
+    {% endif %}
+  </section>
+</div>
+{% endblock %}

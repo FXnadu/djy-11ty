@@ -13,28 +13,34 @@ DJY is an Eleventy static site. The project keeps Eleventy setup, content, templ
 
 ## Structure
 
+One Eleventy build produces two sites: the main personal site and the writing sub-site, which is built under `writing/` and keeps its own layouts, partials, stylesheets, and scripts.
+
 - `eleventy.config.js`: Eleventy entry point. It wires plugins, Markdown settings, passthrough copy, collections, and filters.
-- `eleventy/config/`: small configuration modules for collections, filters, and passthrough paths.
+- `eleventy/config/`: small configuration modules for collections, filters, passthrough paths, and site identity. `eleventy/config/filters/` holds the individual filter modules.
 - `eleventy/plugins/`: local Markdown plugins.
-- `src/_data/`: global site data used by templates.
-- `src/_includes/layouts/`: page and post layouts.
-- `src/_includes/partials/`: reusable template fragments such as the document head, header, and footer.
-- `src/content/pages/`: standalone pages and generated listing pages.
-- `src/content/posts/`: long-form posts.
-- `src/content/dynamics/`: short updates for the dynamics feed. Items are collected but do not generate standalone pages.
-- `src/assets/`: copied CSS, JavaScript, and self-hosted font assets.
+- `scripts/`: build-time helpers that generate self-hosted fonts and pre-render Mermaid diagrams.
+- `src/_data/`: global site data used by templates. `siteConfig.js` covers the main site, `writingConfig.js` the writing sub-site.
+- `src/_includes/layouts/` and `src/_includes/partials/`: layouts and reusable fragments for the main site, such as the document head, header, footer, and SEO tags.
+- `src/_includes/components/`: template macros shared by pages, such as photo media items and the lightbox.
+- `src/_includes/writing/`: layouts and partials for the writing sub-site.
+- `src/content/pages/`: standalone pages for the main site.
+- `src/content/photos/`: one Markdown file per photography year, feeding the `photoYears` collection.
+- `src/content/writing/`: the writing sub-site's home, tag, year, and gene pages, plus `src/content/writing/posts/` for long-form posts.
+- `src/assets/css/`: stylesheets. `base.css` and `shared.css` are loaded by both sites, `components.css` and `pages.css` carry main-site rules, `writing/` holds the sub-site stylesheets, and `photography*.css` styles the photo pages.
+- `src/assets/js/`: browser scripts, with `photography/` and `writing/` scoped to their sections.
+- `src/assets/fonts/` and `src/assets/vendor/`: self-hosted font files and vendored third-party libraries.
 - `src/static/`: static files copied to the site root.
 - `tests/`: unit tests for reusable Eleventy config and local Markdown plugins.
 
 ## Content Notes
 
-- Posts inherit defaults from `src/content/posts/posts.11tydata.js`.
-- Dynamics inherit `permalink: false` from `src/content/dynamics/dynamics.11tydata.js`.
+- Posts inherit their writing layout and the `post` tag from `src/content/writing/posts/posts.11tydata.js`, which also derives a date-based permalink such as `/writing/posts/20260327/`; posts sharing a day get an incrementing suffix.
+- Photography year files set `permalink: false` in `src/content/photos/photos.11tydata.js`, so they produce no standalone pages and render through the `photoYears` collection on the shutter page.
 - Use `tags: [post, ...]` for posts. The base `post` tag is excluded from public tag lists.
 - Numeric tags are treated as year-like tags in the gene views.
 - Dates should use `YYYY-MM-DD` in front matter.
 - Mermaid is loaded from the local `mermaid` npm package output, not a runtime CDN.
-- Fonts are generated from `@fontsource/inter` and `@fontsource/noto-sans-sc` into `src/assets/fonts/`.
+- Fonts are generated from `@fontsource/inter` into `src/assets/fonts/`, with the matching `@font-face` declarations written to `src/assets/css/fonts.css`. Chinese text falls back to the system font stack.
 
 ## Deployment Notes
 

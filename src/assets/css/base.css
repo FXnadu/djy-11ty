@@ -85,8 +85,9 @@ body {
   min-height: 100dvh;
 }
 
+/* 预留固定 header 的实际高度：上下 padding 各 sp-6 + 站名行盒 1.4rem × body 行高 1.8 */
 body.has-header {
-  padding-top: calc(var(--sp-6) * 2 + 1.4rem);
+  padding-top: calc(var(--sp-6) * 2 + 1.4rem * 1.8);
 }
 
 /* Grid */

@@ -1,17 +1,8 @@
 /* Pages — page-specific layouts and content styles
    Hero, rules list. */
 
-/* Hero section */
-.hero {
-  padding: var(--sp-11) 0 var(--sp-10);
-}
-
-/* Homepage hero text */
-.hero-label {
-  color: var(--grey-3);
-  margin-bottom: var(--sp-7);
-}
-
+/* Hero section — .hero / .hero-label / .hero-desc 见 shared.css
+   主站保留专属的 .hero-heading（含解码动画） */
 .hero-heading {
   font-family: var(--sans);
   font-weight: 200;
@@ -49,16 +40,6 @@
      再用负 margin 抵消，保证占用空间与正常状态完全一致 */
   padding-bottom: 0.25em;
   margin-bottom: -0.25em;
-}
-
-.hero-desc {
-  font-family: var(--sans);
-  font-size: max(13px, 1vw);
-  line-height: 1.6;
-  color: var(--grey-3);
-  font-weight: 300;
-  max-width: 36ch;
-  margin-top: var(--sp-6);
 }
 
 /* Homepage hero — unified full-width container */
@@ -99,63 +80,8 @@
   z-index: 1;
 }
 
-.split-left-content {
-  position: relative;
-  z-index: 1;
-}
-
-.split-left-footer {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  justify-content: space-between;
-  padding-top: var(--sp-6);
-  border-top: 1px solid rgba(255,255,255,.22);
-}
-
-.rules-list {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-}
-
-.rule-item {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  gap: var(--sp-7);
-  align-items: start;
-  padding: var(--sp-6) 0;
-  border-top: 1px solid var(--grey-2);
-}
-
-.rule-item.accent-bottom {
-  border-bottom: 2px solid var(--ink);
-}
-
-.rule-num {
-  font-family: var(--sans);
-  font-weight: 200;
-  font-size: min(4.4vw, 7.8vh);
-  line-height: .9;
-  color: var(--ink);
-}
-
-.rule-body h3 {
-  font-family: var(--sans);
-  font-weight: 400;
-  font-size: max(18px, 1.8vw);
-  line-height: 1.2;
-  letter-spacing: -.015em;
-  margin-bottom: var(--sp-3);
-}
-
-.rule-body p {
-  font-family: var(--sans);
-  font-size: max(12px, .92vw);
-  line-height: 1.6;
-  color: var(--grey-3);
-  font-weight: 300;
-}
+/* .split-left-content / .split-left-footer 见 shared.css
+   .rules-list / .rule-item / .rule-num / .rule-body 见 shared.css */
 
 @media (max-width: 768px) {
   .home-hero-split {
@@ -187,13 +113,7 @@
   }
 }
 
-.hero h1 {
-  margin-bottom: var(--sp-7);
-}
-
-.hero .lead {
-  margin-bottom: var(--sp-8);
-}
+/* .hero h1 / .hero .lead 见 shared.css */
 
 /* 404 page — 内容整块居中（不改字号，仅定位）。
    .not-found 高度 = 视口 - 固定 header 高度 - 160px；

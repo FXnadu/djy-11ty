@@ -6,7 +6,8 @@
 <script>document.documentElement.classList.add('js');</script>
 <title>{% if title and title != siteConfig.title %}{{ title }} - {{ siteConfig.title }}{% else %}{{ siteConfig.title }}{% endif %}</title>
 
-{#- SEO / GEO 标签（OG、Canonical、JSON-LD 等） -#}
+{#- SEO / GEO 标签（OG、Canonical、JSON-LD 等）：seoConfig 注入站点级默认值 -#}
+{%- set seoConfig = siteConfig -%}
 {% include "partials/seo.njk" %}
 
 {#- 字体与样式：CSS 直接并行加载（style.css 内的 @import 为串行阻塞，已移除）；本站无代码块，不引入 prism 主题 -#}
@@ -15,5 +16,6 @@
 <link rel="preload" href="/assets/fonts/inter/inter-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/css/fonts.css">
 <link rel="stylesheet" href="/assets/css/base.css">
+<link rel="stylesheet" href="/assets/css/shared.css">
 <link rel="stylesheet" href="/assets/css/components.css">
 <link rel="stylesheet" href="/assets/css/pages.css">

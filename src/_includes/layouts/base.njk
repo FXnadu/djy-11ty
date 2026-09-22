@@ -1,16 +1,38 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-<head>
+<head>{% block head %}
   {% include "partials/head.njk" %}
-</head>
-<body{% if showHeader %} class="has-header"{% endif %}>
-  {% if showHeader %}{% include "partials/site-header.njk" %}{% endif %}
+  {#- 按页面追加样式：front matter 用 extraCss: [...] 声明 -#}
+  {%- set seenExtraCss = [] %}
+  {%- for cssFile in extraCss | toArray %}
+  {%- if cssFile and cssFile not in seenExtraCss %}
+  {%- set _ = seenExtraCss.push(cssFile) %}
+  <link rel="stylesheet" href="{{ cssFile }}">
+  {%- endif %}
+  {%- endfor %}
+{% endblock %}</head>
+{#- body class：showHeader 决定 has-header，front matter 可用 bodyClass 追加 -#}
+{%- set bodyClassList = [] %}
+{%- if showHeader %}{% set _ = bodyClassList.push('has-header') %}{% endif %}
+{%- for className in bodyClass | toArray %}
+{%- if className and className not in bodyClassList %}{% set _ = bodyClassList.push(className) %}{% endif %}
+{%- endfor %}
+<body{% block bodyAttrs %}{% if bodyClassList | length %} class="{{ bodyClassList | join(' ') }}"{% endif %}{% endblock %}>
+  {% block header %}{% if showHeader %}{% include "partials/site-header.njk" %}{% endif %}{% endblock %}
   <main class="container">
     {% block content %}{% endblock %}
   </main>
-  {% if showFooter !== false %}{% include "partials/site-footer.njk" %}{% endif %}
-  {% if showHeader %}<script src="/assets/js/header-scroll.js" defer></script>{% endif %}
-  <script src="/assets/js/ascii-bg.js" defer></script>
+  {%- if afterContainerInclude %}{% include afterContainerInclude %}{% endif %}
+  {% block footer %}{% if showFooter !== false %}{% include "partials/site-footer.njk" %}{% endif %}{% endblock %}
+  {% block scripts %}{% if showHeader %}<script src="/assets/js/header-scroll.js" defer></script>{% endif %}
+  {#- 按页面追加脚本：front matter 用 extraScripts: [...] 声明 -#}
+  {%- for scriptFile in extraScripts | toArray %}
+  <script src="{{ scriptFile }}" defer></script>
+  {%- endfor %}
+  {#- 按页面追加 ES 模块：front matter 用 extraModuleScripts: [...] 声明（模块自带 defer 语义）-#}
+  {%- for scriptFile in extraModuleScripts | toArray %}
+  <script src="{{ scriptFile }}" type="module"></script>
+  {%- endfor %}
   <script src="/assets/js/footer-hover.js" defer></script>
-</body>
+{% endblock %}</body>
 </html>

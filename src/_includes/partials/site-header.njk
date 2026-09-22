@@ -1,7 +1,7 @@
 <header class="site-header">
   <div class="container">
-    <a href="/guestbook/" class="site-title">
-      <span class="site-title-text">{% if page.url == "/" %}Man on the Moon{% else %}Invitation{% endif %}</span>
+    <a href="/" class="site-title">
+      <span class="site-title-text">{% if page.url == "/" %}Man on the Moon{% elif page.url == "/shutter/" %}<span class="site-title-icon" aria-hidden="true">◍</span>Shutter{% else %}Invitation{% endif %}</span>
     </a>
     <nav>
       <a href="/">Home</a>

@@ -1,0 +1,20 @@
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{% if title and title != writingConfig.title %}{{ title }} - {{ writingConfig.title }}{% else %}{{ writingConfig.title }}{% endif %}</title>
+
+{#- SEO / GEO 标签（OG、Canonical、JSON-LD 等）：seoConfig 注入站点级默认值 -#}
+{%- set seoConfig = writingConfig -%}
+{% include "partials/seo.njk" %}
+
+{#- 字体与样式：与主站一致直接并行加载（style.css 内的 @import 为串行阻塞，已移除）；
+    顺序保持 base → shared → components → pages，层叠结果不变 -#}
+<link rel="preload" href="/assets/fonts/inter/inter-latin-200-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/inter/inter-latin-300-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/inter/inter-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/inter/inter-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/css/fonts.css">
+<link rel="stylesheet" href="/assets/css/base.css">
+<link rel="stylesheet" href="/assets/css/shared.css">
+<link rel="stylesheet" href="/assets/css/writing/components.css">
+<link rel="stylesheet" href="/assets/css/writing/pages.css">
+<link rel="stylesheet" href="/assets/css/writing/prism-swiss.css">

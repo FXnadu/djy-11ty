@@ -1,0 +1,58 @@
+{# 媒体项渲染组件 - 图片/视频统一渲染 macro
+   参数:
+     item: 媒体项对象 { src, type, poster?, alt?, caption? }
+     yearLabel: 年份标签文本
+#}
+{% macro render(item, yearLabel) %}
+{% set itemCaption = item.caption or item.alt or yearLabel %}
+{# 网格只加载缩放后的预览图，原图留给灯箱（data-full-src / data-poster） #}
+{% set gridImageWidths = [480, 800, 1200] %}
+{% set gridImageSrcset = item.src | ossSrcset(gridImageWidths) %}
+{% set gridPoster = item.poster | ossImage(800) %}
+<figure
+  class="photography-item"
+  data-full-src="{{ item.src }}"
+  data-media-type="{{ item.type or 'image' }}"
+  data-poster="{{ item.poster }}"
+  data-year="{{ yearLabel }}"
+>
+  {% if item.type == "video" %}
+    <video
+      class="photography-media"
+      {% if gridPoster %}poster="{{ gridPoster }}"{% endif %}
+      preload="metadata"
+      muted
+      playsinline
+      aria-label="{{ item.alt or yearLabel }}"
+    >
+      <source src="{{ item.src }}" type="video/mp4">
+    </video>
+  {% else %}
+    <img
+      class="photography-media"
+      src="{{ item.src | ossImage(800) }}"
+      {% if gridImageSrcset %}srcset="{{ gridImageSrcset }}"
+      sizes="(max-width: 480px) 100vw, (max-width: 768px) 50vw, 33vw"{% endif %}
+      alt="{{ item.alt or yearLabel }}"
+      loading="lazy"
+      decoding="async"
+    >
+  {% endif %}
+  <div class="photography-overlay">
+    <div class="photography-view-icon" aria-hidden="true">
+      {% if item.type == "video" %}
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M8 5.14v13.72a1 1 0 0 0 1.5.86l11.76-6.86a1 1 0 0 0 0-1.72L9.5 4.28A1 1 0 0 0 8 5.14Z"></path>
+        </svg>
+      {% else %}
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"></path>
+          <circle cx="12" cy="12" r="3"></circle>
+        </svg>
+      {% endif %}
+    </div>
+    <figcaption class="photography-caption">{{ itemCaption }}</figcaption>
+    <div class="photography-meta">{{ yearLabel }}{% if item.type == "video" %} / Video{% endif %}</div>
+  </div>
+</figure>
+{% endmacro %}

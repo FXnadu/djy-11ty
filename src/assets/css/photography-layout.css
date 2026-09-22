@@ -1,0 +1,654 @@
+/* ============================================
+   摄影页面独立布局样式 - 站点配色（--paper / --ink 体系）
+   Photography Layout Styles
+   ============================================ */
+
+/* 变量：映射到站点基础色板，仅作用于摄影页 */
+body.photography-layout {
+  --photo-bg: var(--paper);
+  --photo-bg-secondary: var(--grey-1);
+  --photo-bg-tertiary: var(--grey-1-5);
+  --photo-text: var(--ink);
+  --photo-text-strong: var(--ink);
+  --photo-text-secondary: var(--grey-3);
+  --photo-text-muted: var(--grey-2-5);
+  --photo-border: var(--grey-1-5);
+  --photo-border-light: rgba(var(--ink-rgb), 0.06);
+  --photo-shadow: rgba(var(--ink-rgb), 0.08);
+  --photo-shadow-hover: rgba(var(--ink-rgb), 0.15);
+  --photo-transition: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ============================================
+   页面基础样式
+   ============================================ */
+
+body.photography-layout {
+  background-color: var(--photo-bg);
+  color: var(--photo-text);
+  font-family: var(--sans);
+}
+
+/* 仅主内容容器通铺，避免影响 header / footer 内的 .container */
+body.photography-layout main.container {
+  max-width: 100%;
+  padding: 0 0 40px;
+}
+
+/* 摄影页 header 半透明毛玻璃效果 */
+body.photography-layout .site-header {
+  background-color: rgba(var(--paper-rgb), 0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* 小屏设备上 backdrop-filter 的合成开销明显，去掉模糊只保留半透明底色 */
+@media (max-width: 768px) {
+  body.photography-layout .site-header {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+}
+
+/* ============================================
+   主内容区域
+   ============================================ */
+
+body.photography-layout main {
+  padding-top: 0;
+  min-height: 100vh;
+}
+
+/* ============================================
+   摄影页面内容样式
+   ============================================ */
+
+.photography-layout .photography-page {
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* 页面标题区域 */
+.photography-layout .photography-hero {
+  position: relative;
+  min-height: 50vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 100px 24px 80px;
+  overflow: hidden;
+  isolation: isolate;
+  background: linear-gradient(180deg, var(--photo-bg-secondary) 0%, var(--photo-bg) 100%);
+}
+
+.photography-layout .photography-hero-media {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+}
+
+.photography-layout .photography-hero-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transform: scale(1.03);
+  filter: saturate(0.95) contrast(0.96);
+}
+
+.photography-layout .photography-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(10, 10, 10, 0.24) 0%, rgba(10, 10, 10, 0.46) 100%),
+    radial-gradient(ellipse at 20% 30%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 70%, rgba(255, 255, 255, 0.08) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+.photography-layout .photography-hero::after {
+  content: '';
+  position: absolute;
+  inset: auto 0 0;
+  height: 120px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, var(--photo-bg) 100%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.photography-layout .photography-title {
+  font-size: clamp(2.5rem, 8vw, 5rem);
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  margin-bottom: 1rem;
+  color: #fff;
+  text-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+  position: relative;
+  z-index: 1;
+}
+
+.photography-layout .photography-description {
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  color: rgba(255, 255, 255, 0.9);
+  max-width: 600px;
+  line-height: 1.6;
+  position: relative;
+  z-index: 1;
+  text-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+/* 照片网格 - 居中限宽 1800px，瀑布流布局 */
+.photography-layout .photography-gallery {
+  display: block;
+  padding: 20px 16px 0;
+  background: var(--photo-bg);
+  max-width: 1800px;
+  margin: 0 auto;
+}
+
+/* 列数沿用原稿：每年按媒体数量取 1 / 2 / 3 列 */
+.photography-layout .photography-year-grid {
+  column-count: var(--photography-columns, 3);
+  column-gap: 14px;
+  margin-bottom: 3rem;
+}
+
+@media (max-width: 768px) {
+  .photography-layout .photography-year-grid {
+    column-count: 2;
+    column-gap: 6px;
+  }
+}
+
+@media (max-width: 480px) {
+  .photography-layout .photography-year-grid {
+    column-count: 1;
+    column-gap: 0;
+  }
+}
+
+/* 年份分组标题 */
+.photography-layout .photography-year-heading {
+  margin: 0 0 1.25rem;
+  padding: 0 0 0.15rem;
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--photo-text-strong);
+  line-height: 1;
+}
+
+/* 照片项目 */
+.photography-layout .photography-item {
+  break-inside: avoid;
+  page-break-inside: avoid;
+  display: inline-block;
+  width: 100%;
+  max-width: 100%;
+  position: relative;
+  margin: 0 0 14px;
+  overflow: hidden;
+  background: var(--photo-bg-secondary);
+  cursor: pointer;
+  border-radius: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  box-shadow: 0 10px 30px rgba(15, 15, 15, 0.08);
+  transition: transform 0.3s var(--photo-transition), box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.photography-layout .photography-item:hover {
+  transform: translateY(-6px);
+  border-color: rgba(0, 0, 0, 0.08);
+  box-shadow: 0 18px 40px rgba(15, 15, 15, 0.14);
+}
+
+.photography-layout .photography-media {
+  width: 100%;
+  height: auto;
+  max-height: min(68vh, 560px);
+  object-fit: cover;
+  display: block;
+  transition: transform 0.6s var(--photo-transition);
+}
+
+.photography-layout .photography-item video.photography-media {
+  aspect-ratio: 16 / 9;
+  background: var(--photo-bg-secondary);
+}
+
+.photography-layout .photography-item:hover .photography-media {
+  transform: scale(1.05);
+}
+
+/* 照片覆盖层 */
+.photography-layout .photography-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.78) 0%, rgba(0, 0, 0, 0.08) 62%, transparent 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 1.5rem;
+}
+
+.photography-layout .photography-item:hover .photography-overlay {
+  opacity: 1;
+}
+
+.photography-layout .photography-caption {
+  color: #fff;
+  font-size: 0.98rem;
+  font-weight: 500;
+  transform: translateY(10px);
+  transition: transform 0.3s var(--photo-transition);
+}
+
+.photography-layout .photography-item:hover .photography-caption {
+  transform: translateY(0);
+}
+
+.photography-layout .photography-meta {
+  color: rgba(255, 255, 255, 0.74);
+  font-size: 0.76rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-top: 0.45rem;
+  transform: translateY(10px);
+  transition: transform 0.3s var(--photo-transition) 0.05s;
+}
+
+.photography-layout .photography-item:hover .photography-meta {
+  transform: translateY(0);
+}
+
+/* 查看图标 */
+.photography-layout .photography-view-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.8);
+  width: 64px;
+  height: 64px;
+  background: rgba(255, 255, 255, 0.82);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: all 0.3s var(--photo-transition);
+  pointer-events: none;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.photography-layout .photography-item:hover .photography-view-icon {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.photography-layout .photography-view-icon svg {
+  width: 24px;
+  height: 24px;
+  color: var(--photo-text-strong);
+}
+
+/* 空状态 */
+.photography-layout .photography-empty {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 50vh;
+  text-align: center;
+  padding: 4rem 2rem;
+  color: var(--photo-text-secondary);
+}
+
+.photography-layout .photography-empty-icon {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 1.5rem;
+  color: var(--photo-text-muted);
+}
+
+.photography-layout .photography-empty p {
+  font-size: 1.125rem;
+  color: var(--photo-text-secondary);
+}
+
+/* ============================================
+   灯箱样式 - 深色背景突出照片
+   ============================================ */
+
+.photo-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.95);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  padding: 20px;
+}
+
+.photo-lightbox.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.photo-lightbox-image-wrapper {
+  position: relative;
+  max-width: 90vw;
+  max-height: 85vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.photo-lightbox img,
+.photo-lightbox video {
+  max-width: 100%;
+  max-height: 85vh;
+  object-fit: contain;
+  border-radius: 4px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
+}
+
+.photo-lightbox img {
+  transition: transform 0.1s ease-out;
+  cursor: default;
+}
+
+.photo-lightbox video {
+  width: min(90vw, 1280px);
+  background: #000;
+}
+
+.photo-lightbox [hidden] {
+  display: none !important;
+}
+
+.photo-lightbox img[style*="scale(1)"],
+.photo-lightbox img:not([style*="scale"]) {
+  cursor: default;
+}
+
+.photo-lightbox-close {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  width: 48px;
+  height: 48px;
+  background: rgba(255, 255, 255, 0.15);
+  border: none;
+  border-radius: 50%;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  z-index: 10;
+}
+
+.photo-lightbox-close:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: scale(1.05);
+}
+
+.photo-lightbox-close svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* 灯箱导航按钮 */
+.photo-lightbox-nav {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 56px;
+  height: 56px;
+  background: rgba(255, 255, 255, 0.15);
+  border: none;
+  border-radius: 50%;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  opacity: 0;
+  z-index: 10;
+}
+
+.photo-lightbox:hover .photo-lightbox-nav {
+  opacity: 1;
+}
+
+.photo-lightbox-nav:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.photo-lightbox-nav.prev {
+  left: 24px;
+}
+
+.photo-lightbox-nav.next {
+  right: 24px;
+}
+
+.photo-lightbox-nav svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* 灯箱信息栏 */
+.photo-lightbox-info {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 2rem;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, transparent 100%);
+  text-align: center;
+  transform: translateY(100%);
+  transition: transform 0.3s ease;
+}
+
+.photo-lightbox.active .photo-lightbox-info {
+  transform: translateY(0);
+}
+
+.photo-lightbox.is-video {
+  gap: 1rem;
+}
+
+.photo-lightbox.is-video .photo-lightbox-image-wrapper {
+  max-height: none;
+}
+
+.photo-lightbox.is-video .photo-lightbox-info {
+  position: static;
+  width: min(90vw, 1280px);
+  padding: 0;
+  background: none;
+  transform: none;
+  pointer-events: none;
+}
+
+.photo-lightbox-caption {
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+.photo-lightbox-counter {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.875rem;
+}
+
+/* 灯箱视频错误提示 */
+.photo-lightbox-error {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  color: rgba(255, 255, 255, 0.7);
+  pointer-events: none;
+}
+
+.photo-lightbox-error svg {
+  width: 32px;
+  height: 32px;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.photo-lightbox-error-text {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.6);
+  text-align: center;
+}
+
+/* ============================================
+   响应式适配
+   ============================================ */
+
+@media (max-width: 768px) {
+  .photography-layout .photography-hero {
+    min-height: 40vh;
+    padding: 90px 20px 60px;
+  }
+
+  .photography-layout .photography-title {
+    font-size: 2rem;
+  }
+
+  .photography-layout .photography-gallery {
+    padding: 16px 12px 0;
+  }
+
+  .photography-layout .photography-item {
+    border-radius: 6px;
+    margin-bottom: 10px;
+  }
+
+  .photography-layout .photography-media {
+    max-height: min(60vh, 440px);
+  }
+
+  .photography-layout .photography-year-grid {
+    column-gap: 10px;
+    margin-bottom: 2.2rem;
+  }
+
+  .photography-layout .photography-year-heading {
+    margin-bottom: 1rem;
+    font-size: clamp(1.35rem, 5vw, 1.8rem);
+  }
+
+  .photo-lightbox-nav {
+    display: none;
+  }
+
+  .photo-lightbox-close {
+    top: 16px;
+    right: 16px;
+    width: 44px;
+    height: 44px;
+  }
+}
+
+@media (max-width: 480px) {
+  .photography-layout .photography-overlay {
+    opacity: 1;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.6) 0%, transparent 60%);
+  }
+
+  .photography-layout .photography-media {
+    max-height: 360px;
+  }
+
+  .photography-layout .photography-gallery {
+    padding: 14px 10px 0;
+  }
+
+  .photography-layout .photography-year-heading {
+    font-size: 1.2rem;
+    letter-spacing: 0.05em;
+  }
+
+  .photography-layout .photography-caption,
+  .photography-layout .photography-meta {
+    transform: translateY(0);
+  }
+
+  .photography-layout .photography-view-icon {
+    display: none;
+  }
+}
+
+/* ============================================
+   加载动画
+   ============================================ */
+
+/* 入场动画：默认隐藏，进入视口后由 JS 加 .is-revealed 播放，
+   避免屏外元素也占用动画资源；无 JS 时由 <noscript> 兜底 */
+body.photo-reveal .photography-item {
+  opacity: 0;
+}
+
+body.photo-reveal .photography-item.is-revealed {
+  animation: fadeInUp 0.6s ease forwards;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 图片加载占位：加载完成后由 JS 加 .is-loaded 关闭 shimmer */
+.photography-layout .photography-item img.photography-media:not(.is-loaded) {
+  background: linear-gradient(110deg, var(--photo-bg-secondary) 8%, var(--photo-bg-tertiary) 18%, var(--photo-bg-secondary) 33%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s linear infinite;
+}
+
+@keyframes shimmer {
+  to {
+    background-position-x: -200%;
+  }
+}
+
+/* 尊重系统的"减少动效"偏好 */
+@media (prefers-reduced-motion: reduce) {
+  body.photo-reveal .photography-item,
+  body.photo-reveal .photography-item.is-revealed {
+    opacity: 1;
+    animation: none;
+  }
+
+  .photography-layout .photography-item img.photography-media:not(.is-loaded) {
+    animation: none;
+  }
+}

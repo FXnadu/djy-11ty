@@ -1,0 +1,17 @@
+{% set currentYear = "now" | dateFormat("yyyy") %}
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-masthead">
+      <div class="footer-masthead-top">
+        <a class="footer-domain" href="/writing/">dengjunyu.com/writing</a>
+        <p class="footer-tagline">{{ writingConfig.footer.tagline }}</p>
+      </div>
+      <div class="footer-masthead-bottom">
+        <span class="footer-credit">&copy; {{ writingConfig.footer.siteSince }}{% if currentYear != writingConfig.footer.siteSince %}–{{ currentYear }}{% endif %} {{ writingConfig.footer.copyrightHolder }}</span>
+        <a class="footer-credit footer-link" href="{{ writingConfig.footer.licenseUrl }}" target="_blank" rel="noopener">{{ writingConfig.footer.license }}</a>
+        <span class="footer-credit">Last built {{ "now" | dateFormat }}</span>
+      </div>
+    </div>
+  </div>
+</footer>

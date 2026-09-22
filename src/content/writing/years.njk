@@ -1,0 +1,30 @@
+---
+pagination:
+  data: collections.yearPages
+  size: 1
+  alias: pageData
+permalink: /writing/gene/{{ pageData.year }}/{% if pageData.page > 0 %}{{ pageData.page + 1 }}/{% endif %}
+---
+
+{% extends "writing/layouts/base.njk" %}
+
+{% block content %}
+<div class="gene-header">
+  <h1 class="gene-title">{{ pageData.year }}</h1>
+  <p class="gene-count t-meta">{{ pageData.total }} 篇文章</p>
+</div>
+
+<ul class="post-list">
+  {% for post in pageData.posts %}
+  <li>
+    <span class="post-date">{{ post.date | dateFormat("yyyy-MM-dd") }}</span>
+    <a href="{{ post.url }}" class="post-title">{{ post.data.title }}</a>
+  </li>
+  {% endfor %}
+</ul>
+
+{% set pgCurrent = pageData.page %}
+{% set pgTotal = pageData.totalPages %}
+{% set pgBaseUrl = "/writing/gene/" + pageData.year + "/" %}
+{% include "writing/partials/pagination.njk" %}
+{% endblock %}

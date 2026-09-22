@@ -1,0 +1,27 @@
+---
+title: 文章列表
+permalink: /writing/{% if pagination.pageNumber > 0 %}{{ pagination.pageNumber + 1 }}/{% endif %}
+pagination:
+  data: collections.posts
+  size: 20
+  alias: posts
+---
+
+{% extends "writing/layouts/base.njk" %}
+
+{% block content %}
+<h1 class="page-header">{{ title }}</h1>
+<ul class="post-list">
+  {% for post in posts %}
+  <li>
+    <span class="post-date">{{ post.date | dateFormat("yyyy-MM-dd") }}</span>
+    <a href="{{ post.url }}" class="post-title">{{ post.data.title }}</a>
+  </li>
+  {% endfor %}
+</ul>
+
+{% set pgCurrent = pagination.pageNumber %}
+{% set pgTotal = pagination.pages | length %}
+{% set pgBaseUrl = "/writing/" %}
+{% include "writing/partials/pagination.njk" %}
+{% endblock %}

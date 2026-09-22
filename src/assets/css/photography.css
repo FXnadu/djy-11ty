@@ -1,0 +1,11 @@
+body.photography-layout .photography-gallery {
+    align-items: stretch;
+}
+
+body.photography-layout .photography-item {
+    min-width: 0;
+}
+
+body.photography-layout .photography-media {
+    display: block;
+}

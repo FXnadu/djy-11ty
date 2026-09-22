@@ -1,0 +1,628 @@
+/* Components — reusable UI pieces
+   Header, footer, pagination, tabs, TOC, alerts, tables, etc.
+   两站共用的规则在 shared.css，本文件只保留写作子站专属部分。 */
+
+/* Header — 通用结构见 shared.css，此处只保留子站专属排版 */
+.site-title {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-4);
+  font-weight: 200;
+  font-size: 1.4rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border-bottom: none;
+}
+
+/* .site-title:hover / .site-header nav 见 shared.css；
+   .site-mark 无模板引用，随主站专属死代码一并删除 */
+
+.site-header nav a {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--sp-3);
+  font-size: 0.9rem;
+  line-height: 1.5;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  color: var(--grey-3);
+  border-bottom: none;
+}
+
+.nav-index {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  letter-spacing: 0;
+}
+
+/* .site-header nav a:hover 见 shared.css */
+
+/* Page header (shared by posts, gene pages) */
+.page-header {
+  margin-top: var(--sp-10);
+  margin-bottom: var(--sp-8);
+}
+
+.page-header + .lead {
+  margin-bottom: var(--sp-9);
+}
+
+/* Sections / About / Contact grid 见 shared.css（写作子站无对应模板引用） */
+
+/* Post list */
+.post-list {
+  list-style: none;
+}
+
+.post-list li {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: var(--sp-6);
+  align-items: baseline;
+  padding: var(--sp-6) 0;
+}
+
+.post-list .post-date {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--grey-3);
+  letter-spacing: 0.04em;
+  line-height: 31px;
+}
+
+.post-list .post-title {
+  font-weight: 300;
+  font-size: 1.15rem;
+}
+
+/* Post meta & tags */
+.post-tags {
+  display: flex;
+  gap: var(--sp-3);
+  flex-wrap: wrap;
+}
+
+.post-tag {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--grey-3);
+  padding: 2px 8px;
+  border: 1px solid var(--grey-2);
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.post-tag:hover {
+  color: var(--ink);
+  border-color: var(--ink);
+}
+
+/* GitHub Alerts 见 shared.css */
+
+/* Tables */
+.post-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: var(--sp-7);
+  font-size: 0.9rem;
+}
+
+.post-content thead {
+  border-bottom: 2px solid var(--ink);
+}
+
+.post-content th {
+  font-weight: 600;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  text-align: left;
+  padding: var(--sp-4) var(--sp-5);
+  color: var(--ink);
+}
+
+.post-content td {
+  padding: var(--sp-4) var(--sp-5);
+  border-bottom: 1px solid var(--grey-1);
+  vertical-align: top;
+}
+
+.post-content tbody tr:last-child td {
+  border-bottom: 2px solid var(--ink);
+}
+
+/* Table of Contents */
+.toc {
+  padding: var(--sp-5) 0;
+}
+
+.toc-title {
+  margin-bottom: var(--sp-5);
+  border-bottom: 1px solid var(--grey-2);
+  padding-bottom: var(--sp-4);
+}
+
+.toc-list {
+  list-style: none;
+  counter-reset: toc;
+  padding: 0;
+  margin: 0;
+}
+
+.toc-item {
+  counter-increment: toc;
+  padding: var(--sp-3) 0;
+  border-bottom: 1px solid var(--grey-1);
+  font-size: 0.8rem;
+  line-height: 1.5;
+}
+
+.toc-item:last-child {
+  border-bottom: none;
+}
+
+.toc-item::before {
+  content: counter(toc, decimal-leading-zero);
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  color: var(--grey-3);
+  margin-right: var(--sp-4);
+  letter-spacing: 0.04em;
+}
+
+.toc-sub {
+  padding-left: var(--sp-6);
+  font-size: 0.75rem;
+}
+
+.toc-sub::before {
+  content: "—";
+  font-size: 0.65rem;
+}
+
+.toc-item a {
+  color: var(--grey-3);
+  border-bottom: none;
+  border-left: 2px solid transparent;
+  padding-left: var(--sp-4);
+  display: block;
+  transition: opacity 0.3s ease;
+}
+
+.toc-item a:hover {
+  color: var(--ink);
+  border-bottom: none;
+}
+
+.toc-item a.active {
+  color: var(--ink);
+  font-weight: 400;
+  border-left: 2px solid var(--ink);
+  padding-left: var(--sp-4);
+}
+
+/* Non-hover: dim entire non-active items (link + counter), keep only the active one clear */
+.post-sidebar .toc-item,
+.post-sidebar .toc-item::before,
+.post-sidebar .toc-title {
+  transition: opacity 0.35s ease;
+}
+
+.post-sidebar:not(:hover) .toc-item:not(:has(a.active)),
+.post-sidebar:not(:hover) .toc-title {
+  opacity: 0.12;
+}
+
+.post-sidebar:not(:hover) .toc-item:has(a.active) {
+  opacity: 1;
+}
+
+/* Footnote tooltip */
+.footnote-tooltip {
+  position: absolute;
+  z-index: 100;
+  max-width: 360px;
+  padding: var(--sp-4) var(--sp-5);
+  background: var(--paper);
+  border: 1px solid var(--grey-2);
+  font-size: 0.8rem;
+  line-height: 1.6;
+  color: var(--ink);
+  box-shadow: none;
+}
+
+.footnote-tooltip p {
+  margin: 0;
+  max-width: none;
+}
+
+.footnote-ref {
+  cursor: help;
+  font-weight: 600;
+  border-bottom: 1px dashed var(--grey-3);
+}
+
+/* Tabs */
+.tab-group {
+  margin-bottom: var(--sp-7);
+  border: 1px solid var(--grey-2);
+}
+
+.tab-list {
+  display: flex;
+  border-bottom: 1px solid var(--grey-2);
+  background: var(--grey-1);
+}
+
+.tab-btn {
+  padding: var(--sp-4) var(--sp-6);
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--grey-3);
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.tab-btn:hover {
+  color: var(--ink);
+}
+
+.tab-btn.active {
+  color: var(--ink);
+  font-weight: 600;
+  border-bottom-color: var(--ink);
+  background: var(--paper);
+}
+
+.tab-panel {
+  display: none;
+  padding: var(--sp-5) var(--sp-6);
+}
+
+.tab-panel.active {
+  display: block;
+}
+
+.tab-panel > :last-child {
+  margin-bottom: 0;
+}
+
+/* Lighter code block styles inside tab panels */
+.tab-panel pre,
+.tab-panel pre[class*="language-"] {
+  background: var(--grey-1);
+  padding: var(--sp-5);
+  border: none;
+  border-left: 2px solid var(--grey-2);
+  margin-bottom: 0;
+}
+
+/* Mermaid diagrams */
+.mermaid {
+  margin-bottom: var(--sp-7);
+  overflow-x: auto;
+  text-align: center;
+}
+
+.mermaid svg {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Gene / Tags page */
+.gene-count {
+  margin-bottom: var(--sp-8);
+}
+
+.gene-header {
+  margin-bottom: var(--sp-8);
+}
+
+/* Gene title as tab */
+.gene-title {
+  font-weight: 200;
+  font-size: min(3.2vw, 5.2vh);
+  margin-top: var(--sp-10);
+  margin-bottom: var(--sp-4);
+}
+
+.gene-title-btn {
+  cursor: pointer;
+  transition: color 0.2s, opacity 0.2s;
+  color: var(--grey-2);
+}
+
+.gene-title-btn:hover {
+  color: var(--grey-3);
+}
+
+.gene-title-btn.active {
+  color: var(--ink);
+}
+
+.gene-title-sep {
+  color: var(--grey-2);
+  margin: 0 var(--sp-3);
+  font-weight: 200;
+}
+
+.gene-view {
+  display: none;
+}
+
+.gene-view.active {
+  display: block;
+}
+
+.tag-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: var(--sp-5);
+}
+
+.tag-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: var(--sp-5) var(--sp-6);
+  border: 1px solid var(--grey-2);
+  transition: border-color 0.2s;
+  border-bottom: none;
+}
+
+.tag-card:hover {
+  border-color: var(--ink);
+  border-bottom: none;
+}
+
+.tag-name {
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+.tag-name-year {
+  font-family: var(--mono);
+  letter-spacing: 0.04em;
+}
+
+.tag-count {
+  flex-shrink: 0;
+  margin-left: var(--sp-5);
+}
+
+/* Footer — masthead / colophon style
+   .site-footer / .footer-masthead / .footer-tagline 见 shared.css；
+   masthead-top 与 footer-domain 为子站专属结构，保留在下方 */
+.footer-masthead-top {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--sp-7);
+  align-items: start;
+  margin-bottom: var(--sp-9);
+}
+
+.footer-domain {
+  font-family: var(--sans-display);
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  font-weight: 200;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  color: var(--ink);
+  border-bottom: none;
+}
+
+.footer-domain:hover {
+  color: var(--grey-3);
+  border-bottom: none;
+}
+
+/* .footer-tagline 见 shared.css */
+
+.footer-masthead-bottom {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--sp-3) var(--sp-7);
+  border-top: 1px solid var(--grey-2);
+  padding-top: var(--sp-4);
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  color: var(--grey-3);
+}
+
+.footer-credit {
+  color: var(--grey-3);
+}
+
+.footer-link {
+  color: inherit;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s;
+}
+
+.footer-link:hover {
+  border-bottom-color: var(--grey-3);
+}
+
+@media (max-width: 768px) {
+  .footer-masthead-top {
+    grid-template-columns: 1fr;
+    gap: var(--sp-4);
+    margin-bottom: var(--sp-7);
+  }
+
+  .footer-tagline {
+    justify-self: start;
+    text-align: left;
+  }
+
+  .footer-masthead-bottom {
+    gap: var(--sp-3) var(--sp-5);
+  }
+}
+
+/* Back to top */
+.back-to-top {
+  position: fixed;
+  right: var(--sp-7);
+  bottom: var(--sp-7);
+  z-index: 90;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  color: var(--grey-3);
+  background: var(--paper);
+  border: 1px solid var(--grey-2);
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(8px);
+  transition: opacity 0.25s, transform 0.25s, visibility 0.25s, color 0.2s, border-color 0.2s;
+}
+
+.back-to-top svg {
+  display: block;
+}
+
+.back-to-top.is-visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.back-to-top:hover {
+  color: var(--ink);
+  border-color: var(--ink);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .back-to-top {
+    transition: none;
+  }
+}
+
+/* Pagination */
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--sp-9) 0 var(--sp-8);
+  border-top: 1px solid var(--grey-2);
+  margin-top: var(--sp-8);
+}
+
+.pagination-link {
+  font-size: 0.85rem;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  min-width: 80px;
+}
+
+.pagination-link.is-disabled {
+  color: var(--grey-2);
+  pointer-events: none;
+}
+
+.pagination-selector {
+  position: relative;
+}
+
+.pagination-selector-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-3);
+  background: none;
+  border: 1px solid var(--grey-2);
+  padding: var(--sp-3) var(--sp-4);
+  cursor: pointer;
+  color: var(--grey-3);
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.pagination-selector-btn:hover {
+  border-color: var(--ink);
+  color: var(--ink);
+}
+
+.pagination-selector-btn svg {
+  flex-shrink: 0;
+}
+
+.pagination-popup {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--paper);
+  border: 1px solid var(--grey-2);
+  padding: var(--sp-5);
+  z-index: 50;
+  min-width: 220px;
+}
+
+.pagination-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 49;
+}
+
+.pagination-popup-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 4px;
+}
+
+.pagination-popup-page {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  color: var(--grey-3);
+  border-bottom: none;
+  transition: color 0.15s, background 0.15s;
+}
+
+.pagination-popup-page:hover {
+  color: var(--ink);
+  background: var(--grey-1);
+  border-bottom: none;
+}
+
+.pagination-popup-page.is-current {
+  color: var(--paper);
+  background: var(--ink);
+  font-weight: 600;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .post-list li {
+    grid-template-columns: 1fr;
+    gap: var(--sp-3);
+  }
+
+  .post-list .post-category {
+    display: none;
+  }
+
+  .site-header nav {
+    gap: var(--sp-5);
+  }
+}

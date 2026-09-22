@@ -1,69 +1,16 @@
-const { DateTime } = require("luxon");
+// 过滤器聚合入口：具体实现按职责拆到 ./filters/ 下的模块，这里只负责统一注册
+const dates = require("./filters/dates");
+const slug = require("./filters/slug");
+const arrays = require("./filters/arrays");
+const ossImage = require("./filters/oss-image");
+const jsonLd = require("./filters/json-ld");
+
+const filterModules = [dates, slug, arrays, ossImage, jsonLd];
 
 module.exports = {
   registerFilters(eleventyConfig) {
-    eleventyConfig.addFilter("dateFormat", (date, format = "yyyy-MM-dd") => {
-      if (date === "now") return DateTime.now().toFormat(format);
-      if (!date) return "";
-      return DateTime.fromJSDate(date).toFormat(format);
+    filterModules.forEach((filters) => {
+      Object.entries(filters).forEach(([name, fn]) => eleventyConfig.addFilter(name, fn));
     });
-
-    eleventyConfig.addFilter("dateISO", (date) => {
-      if (date === "now") return DateTime.now().toISODate();
-      if (!date) return "";
-      return DateTime.fromJSDate(date).toISODate();
-    });
-
-    eleventyConfig.addFilter("titleCase", (str) => {
-      if (!str) return "";
-      return str.replace(/\b\w/g, (c) => c.toUpperCase());
-    });
-
-    eleventyConfig.addFilter("limit", (array, limit) => {
-      if (!Array.isArray(array)) return [];
-      return array.slice(0, limit);
-    });
-
-    // Generate JSON-LD structured data for GEO (Generative Engine Optimization)
-    // data: { url, title, description, date, image } — page-level SEO fields
-    // siteConfig: global site configuration
-    // Returns a JSON string safe for embedding in <script type="application/ld+json">
-    //
-    // Schema design:
-    //   - @id anchors enable cross-referencing between schemas (AI builds entity graph)
-    //   - WebSite schema is present on every page
-    //   - Person schema is fully defined on the homepage, referenced by @id elsewhere
-    eleventyConfig.addFilter("jsonLd", (data, siteConfig) => {
-      const schemas = [];
-      const baseUrl = siteConfig.url;
-
-      // WebSite schema — present on every page
-      schemas.push({
-        "@context": "https://schema.org",
-        "@type": "WebSite",
-        "@id": baseUrl + "#website",
-        name: siteConfig.title,
-        url: baseUrl,
-        description: siteConfig.description,
-        inLanguage: siteConfig.language,
-        author: {
-          "@id": baseUrl + "#person",
-        },
-      });
-
-      // Person schema — on homepage, full definition; elsewhere referenced by @id
-      if (data.url === "/") {
-        schemas.push({
-          "@context": "https://schema.org",
-          "@type": "Person",
-          "@id": baseUrl + "#person",
-          name: siteConfig.author.name,
-          url: baseUrl,
-          description: siteConfig.about,
-        });
-      }
-
-      return JSON.stringify(schemas.length === 1 ? schemas[0] : schemas);
-    });
-  }
+  },
 };

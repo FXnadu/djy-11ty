@@ -4,9 +4,10 @@
   "description": "DJY - Eleventy static site",
   "main": "eleventy.config.js",
   "scripts": {
-    "start": "node scripts/generate-fonts.js && eleventy --serve",
+    "start": "node scripts/generate-slugs.js && node scripts/generate-fonts.js && eleventy --serve",
     "clean": "node -e \"require('node:fs').rmSync('_site', { recursive: true, force: true })\"",
-    "build": "npm run clean && node scripts/generate-fonts.js && cross-env NODE_ENV=production eleventy",
+    "build": "npm run clean && node scripts/generate-slugs.js && node scripts/generate-fonts.js && cross-env NODE_ENV=production eleventy",
+    "slugs": "node scripts/generate-slugs.js",
     "debug": "cross-env DEBUG=* eleventy",
     "test": "vitest run",
     "fonts:generate": "node scripts/generate-fonts.js"
@@ -19,7 +20,8 @@
     "@11ty/eleventy": "^3.1.2",
     "@11ty/eleventy-plugin-syntaxhighlight": "^5.0.2",
     "@fontsource/inter": "^5.2.8",
-    "@fontsource/noto-sans-sc": "^5.2.9",
+    "@mermaid-js/layout-elk": "^0.2.2",
+    "gray-matter": "^4.0.3",
     "luxon": "^3.7.2",
     "markdown-it": "^14.1.0",
     "markdown-it-abbr": "^2.0.0",
