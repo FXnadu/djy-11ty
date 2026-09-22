@@ -17,11 +17,9 @@ module.exports = {
     icpUrl: "https://beian.miit.gov.cn/"
   },
   contacts: [
-    { name: "GitHub", value: "FXnadu", url: "https://github.com/FXnadu" },
     { name: "If I'm Dancing", value: "writing", url: "/writing/" },
-    { name: "Shutter", value: "shutter", url: "/shutter/" },
+    { name: "摄影", value: "shutter", url: "/shutter/" },
     { name: "邮箱", value: "hello@dengjunyu.com" },
     { name: "微信", value: "deepwhitex_" },
-    { name: "QQ", value: "1703452231" },
   ]
 };

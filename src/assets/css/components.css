@@ -96,7 +96,7 @@
   word-break: break-word;
 }
 
-/* Contact grid — 见 shared.css */
+/* Contact list — 见 shared.css */
 
 /* GitHub Alerts — 见 shared.css */
 
@@ -263,9 +263,14 @@
 /* Touch devices — 加大点击区域（触屏设备才生效，不影响桌面 hover 布局） */
 @media (hover: none) {
   .site-header nav a,
-  .contact-copy,
   .footer-link {
     padding: 6px 0;
+  }
+
+  /* 扩大点击区域；负 margin 抵消，避免撑高盒子破坏行内基线对齐 */
+  .contact-copy {
+    padding: 6px 0;
+    margin: -6px 0;
   }
 }
 

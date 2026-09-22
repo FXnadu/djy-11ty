@@ -68,26 +68,70 @@
   color: var(--grey-3);
 }
 
-/* ---------- Contact grid ---------- */
-.contact-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: var(--sp-5);
+/* ---------- Contact list ---------- */
+/* 索引行：行间与块底部都不画线（6 行各一条会密成刻度表，收尾线也多余），
+   整块靠 section-header 的上墨线与自身留白界定边界 */
+.contact-list {
+  display: flex;
+  flex-direction: column;
 }
 
+/* 逐行紧贴的 key-value：不设共享列，值直接跟在标签右侧。
+   联系方式是逐行读的（找邮箱就只看邮箱那行），不需要纵向对齐，
+   而一旦对齐，最长标签会把其余各行的值与标签拉开一大段空白。 */
 .contact-item {
-  padding: var(--sp-5) 0;
-  border-bottom: 1px solid var(--grey-2);
+  display: flex;
+  align-items: baseline;
+  gap: var(--sp-6);
+  padding: var(--sp-4) 0;
 }
 
 .contact-label {
-  display: block;
-  margin-bottom: var(--sp-3);
+  flex-shrink: 0;
+  transition: color 0.2s;
 }
 
+.contact-item:hover .contact-label,
+.contact-item:focus-within .contact-label {
+  color: var(--ink);
+}
+
+/* 链接与可复制项常态外观一致（都不带下划线），差异只由尾部标记表达；
+   悬停/聚焦整行时下划线一并浮出 */
 .contact-value {
+  min-width: 0;
   font-size: 1rem;
   font-weight: 400;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s;
+}
+
+.contact-item:hover .contact-value,
+.contact-item:focus-within .contact-value {
+  border-bottom-color: var(--ink);
+}
+
+/* 值尾部行为标记：站外链接 ↗、站内链接 →；可复制项用复制图标（见下） */
+a.contact-value::after {
+  content: "↗";
+  display: inline-block;
+  margin-left: var(--sp-3);
+  font-family: var(--mono);
+  font-size: 0.85em;
+  line-height: 1;
+  color: var(--grey-3);
+  opacity: 0.55;
+  transition: opacity 0.2s, transform 0.2s;
+}
+
+a.contact-value[href^="/"]::after {
+  content: "→";
+}
+
+.contact-item:hover a.contact-value::after,
+.contact-item:focus-within a.contact-value::after {
+  opacity: 1;
+  transform: translateX(2px);
 }
 
 .contact-copy {
@@ -110,13 +154,24 @@
   flex-shrink: 0;
 }
 
-.contact-copy:hover::after {
+.contact-copy:hover::after,
+.contact-item:hover .contact-copy::after,
+.contact-item:focus-within .contact-copy::after {
   opacity: 1;
 }
 
 .contact-copy.copied::after {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23737373' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E");
   opacity: 1;
+}
+
+/* 小屏手机：标签与值改为上下结构，避免长值（邮箱）被挤断 */
+@media (max-width: 480px) {
+  .contact-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--sp-3);
+  }
 }
 
 /* ---------- GitHub Alerts ---------- */
