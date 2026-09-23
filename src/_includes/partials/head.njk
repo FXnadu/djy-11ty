@@ -19,3 +19,10 @@
 <link rel="stylesheet" href="/assets/css/shared.css">
 <link rel="stylesheet" href="/assets/css/components.css">
 <link rel="stylesheet" href="/assets/css/pages.css">
+
+{#- 移动端层：必须排在所有桌面样式之后，按 base → shared → components → pages
+    的顺序覆盖，优先级与桌面层一一对应 -#}
+<link rel="stylesheet" href="/assets/css/mobile/base.css">
+<link rel="stylesheet" href="/assets/css/mobile/shared.css">
+<link rel="stylesheet" href="/assets/css/mobile/components.css">
+<link rel="stylesheet" href="/assets/css/mobile/pages.css">

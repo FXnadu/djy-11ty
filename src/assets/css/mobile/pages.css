@@ -1,0 +1,40 @@
+/* Mobile Pages — 主站页面级布局的移动端规则
+   从 pages.css 抽出的断点规则；桌面布局仍在 pages.css。
+   断点：≤640px、≤480px。 */
+
+/* ---------- ≤640px ---------- */
+/* 移动端不展示首页 hero（大标题 + ASCII 画布），页面直接从下方内容开始 */
+@media (max-width: 640px) {
+  .home-hero-split {
+    display: none;
+  }
+
+  /* hero 隐藏后入场动画无从可见，header 必须立即可见：
+     否则 body.hero-intro 的隐藏态会一直持续到解码动画结束（约 6s），
+     期间页面既没有 hero 也没有导航。
+     选择器与 pages.css 中的隐藏规则完全一致，靠加载顺序（mobile 层在后）覆盖。 */
+  .js body.hero-intro .site-header {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+/* ---------- ≤480px ---------- */
+/* 小屏手机 */
+@media (max-width: 480px) {
+  /* rule 条目改为上下结构，数字字号放大 */
+  .rule-item {
+    grid-template-columns: 1fr;
+    gap: var(--sp-3);
+    padding: var(--sp-5) 0;
+  }
+
+  .rule-num {
+    font-size: min(7vw, 7vh);
+  }
+
+  /* 404 主数字在小屏上放大，避免缩成一行小字 */
+  .not-found h1 {
+    font-size: min(20vw, 12vh);
+  }
+}

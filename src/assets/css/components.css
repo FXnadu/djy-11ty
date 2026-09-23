@@ -221,69 +221,7 @@
   border-bottom-color: var(--ink);
 }
 
-@media (max-width: 768px) {
-  .footer-masthead-top {
-    grid-template-columns: 1fr;
-    gap: var(--sp-4);
-    margin-bottom: var(--sp-7);
-  }
-
-  .footer-tagline {
-    justify-self: start;
-    text-align: left;
-  }
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-  .site-header nav {
-    gap: var(--sp-5);
-  }
-}
-
-/* Mobile — 小屏手机：压缩 header，避免标题与导航溢出 */
-@media (max-width: 480px) {
-  .site-title {
-    font-size: 1.15rem;
-  }
-
-  .site-header nav {
-    gap: var(--sp-4);
-  }
-
-  .site-header nav a {
-    font-size: 0.7rem;
-  }
-
-  .footer-meta {
-    font-size: 0.65rem;
-  }
-}
-
-/* Touch devices — 加大点击区域（触屏设备才生效，不影响桌面 hover 布局） */
-@media (hover: none) {
-  .site-header nav a,
-  .footer-link {
-    padding: 6px 0;
-  }
-
-  /* 扩大点击区域；负 margin 抵消，避免撑高盒子破坏行内基线对齐 */
-  .contact-copy {
-    padding: 6px 0;
-    margin: -6px 0;
-  }
-}
-
-/* iOS safe areas — header 避开刘海/状态栏，footer 避开底部横条 */
-@supports (padding-top: env(safe-area-inset-top)) {
-  .site-header {
-    padding-top: max(var(--sp-6), env(safe-area-inset-top));
-  }
-}
-
-@supports (padding-bottom: env(safe-area-inset-bottom)) {
-  .site-footer {
-    padding-bottom: max(var(--sp-8), env(safe-area-inset-bottom));
-  }
-}
+/* Responsive / 触屏 / 安全区规则见 mobile/components.css
+   （footer masthead 单列、header 导航收紧、小屏压缩、触屏点击区域、
+     header 顶部与 footer 底部安全区） */
 

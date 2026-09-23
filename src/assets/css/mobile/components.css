@@ -1,0 +1,92 @@
+/* Mobile Components — 主站专属组件的移动端规则
+   从 components.css 抽出的断点 / 触屏 / 安全区规则；桌面排版仍在 components.css。
+   断点：≤640px、≤480px。 */
+
+/* ---------- 安全区 ---------- */
+/* header 顶部安全区内边距见 mobile/base.css（该变量同时决定 body.has-header 的
+   预留高度，两站必须共用同一处理，故不放主站专属层） */
+
+/* footer 底部避开 iOS 主屏横条 */
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+  .site-footer {
+    padding-bottom: max(var(--sp-8), env(safe-area-inset-bottom));
+  }
+}
+
+/* ---------- ≤640px ---------- */
+/* footer masthead 改单列；header 导航收紧；页脚域名退化为静态主域名 */
+@media (max-width: 640px) {
+  .footer-masthead-top {
+    grid-template-columns: 1fr;
+    gap: var(--sp-4);
+    margin-bottom: var(--sp-7);
+  }
+
+  .footer-tagline {
+    justify-self: start;
+    text-align: left;
+  }
+
+  .site-header nav {
+    gap: var(--sp-5);
+  }
+
+  /* 翻牌是鼠标专属交互（只在 hover:hover + pointer:fine 下触发），移动端留着只有副作用：
+     部分 Android 微信 / WebView 把 :focus-visible 当 :focus 实现，点一下域名就会把
+     第二面（备用域名）和说明文案顶出来并一直粘着。移动端只留主域名的静态文本。 */
+  .footer-domain-clip {
+    height: auto;
+    overflow: visible;
+  }
+
+  .footer-domain-face + .footer-domain-face,
+  .footer-domain-note {
+    display: none;
+  }
+
+  /* 彻底关掉翻牌手势的位移与变色反馈。揭示规则里 :hover 分支的权重是 (0,4,1)
+     （html + :not() + .footer-domain + :hover + .footer-domain-face），普通选择器压不过，
+     故用 !important（同 pages.css 里 .lc-highlight 关动画的手法）。 */
+  .footer-domain-face {
+    transform: none !important;
+  }
+
+  .footer-domain {
+    color: var(--ink) !important;
+  }
+}
+
+/* ---------- ≤480px ---------- */
+/* 小屏手机：压缩 header，避免标题与导航溢出 */
+@media (max-width: 480px) {
+  .site-title {
+    font-size: 1.15rem;
+  }
+
+  .site-header nav {
+    gap: var(--sp-4);
+  }
+
+  .site-header nav a {
+    font-size: 0.7rem;
+  }
+
+  .footer-meta {
+    font-size: 0.65rem;
+  }
+}
+
+/* ---------- 触屏设备 ---------- */
+/* 加大点击区域（只在无 hover 能力的触屏设备生效，不影响桌面布局） */
+@media (hover: none) {
+  .site-header nav a,
+  .footer-link {
+    padding: 6px 0;
+  }
+
+  /* 扩大点击区域；负 margin 抵消，避免撑高盒子破坏行内基线对齐 */
+  .contact-copy {
+    padding: 6px 0;
+    margin: -6px 0;
+  }
+}

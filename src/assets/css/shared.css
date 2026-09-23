@@ -165,14 +165,7 @@ a.contact-value[href^="/"]::after {
   opacity: 1;
 }
 
-/* 小屏手机：标签与值改为上下结构，避免长值（邮箱）被挤断 */
-@media (max-width: 480px) {
-  .contact-item {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: var(--sp-3);
-  }
-}
+/* 小屏手机（≤480px）标签与值改上下结构：见 mobile/shared.css */
 
 /* ---------- GitHub Alerts ---------- */
 .markdown-alert {

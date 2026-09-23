@@ -1,0 +1,73 @@
+/* Mobile Base — 移动端基础层（主站与写作子站共用）
+   加载位置：所有桌面样式之后（base → shared → [components → pages] → mobile/*）。
+   职责：只收敛「随屏幕变窄 / 触屏环境」而调整的基础规则——间距标尺、标题字号、
+         安全区、触控细节。桌面规则仍留在 base.css，两处不重复。
+   断点：≤640px（大屏手机 / 小平板竖屏）、≤480px（小屏手机）。
+   base.css / shared.css 为两站共用，故本层也在两个子站都加载。 */
+
+/* ---------- 触控细节 ---------- */
+/* 去掉移动端点击高亮，改用 :focus-visible 提供可访问焦点样式；
+   阻止 iOS 在横向排版时自动放大字号 */
+html {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+/* ---------- 安全区 ---------- */
+/* 固定 header 的顶部内边距：刘海屏 / 挖孔屏让位给状态栏，其余设备维持 sp-6。
+   base.css 的 body.has-header 用同一变量预留高度，两者始终一致，不会互相错位。
+   正因如此，header 应用该变量的规则必须留在共享层：若只给主站加，
+   子站就会出现「body 让位了、header 没让位」的高度差。 */
+@supports (padding-top: env(safe-area-inset-top)) {
+  :root {
+    --header-pad-top: max(var(--sp-6), env(safe-area-inset-top));
+  }
+}
+
+.site-header {
+  padding-top: var(--header-pad-top);
+}
+
+/* iOS 刘海屏 / 圆形挖孔屏：容器左右留白不小于安全区 */
+@supports (padding: env(safe-area-inset-left)) {
+  .container {
+    padding-left: max(var(--sp-7), env(safe-area-inset-left));
+    padding-right: max(var(--sp-7), env(safe-area-inset-right));
+  }
+}
+
+/* ---------- ≤640px：大屏手机 / 小平板竖屏 ---------- */
+/* 收紧间距标尺，标题与正文改为按屏宽缩放（避免在大屏手机上过小） */
+@media (max-width: 640px) {
+  :root {
+    --sp-7: 24px;
+    --sp-8: 32px;
+    --sp-9: 40px;
+    --sp-10: 48px;
+    --sp-11: 64px;
+  }
+
+  h1 { font-size: min(7vw, 8.5vh); }
+  h2 { font-size: min(4.4vw, 4.8vh); }
+  h3 { font-size: min(2.8vw, 3.2vh); }
+  .lead { font-size: min(2.5vw, 2.8vh); }
+}
+
+/* ---------- ≤480px：小屏手机 ---------- */
+/* 进一步收紧间距与字号 */
+@media (max-width: 480px) {
+  :root {
+    --sp-5: 14px;
+    --sp-6: 16px;
+    --sp-7: 20px;
+    --sp-8: 28px;
+    --sp-9: 36px;
+    --sp-10: 40px;
+    --sp-11: 48px;
+  }
+
+  h1 { font-size: min(8vw, 9vh); }
+  h2 { font-size: min(5vw, 5.4vh); }
+  .lead { font-size: min(3vw, 3.2vh); }
+}

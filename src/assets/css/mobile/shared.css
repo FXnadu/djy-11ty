@@ -1,0 +1,27 @@
+/* Mobile Shared — 共享组件的移动端规则（主站与写作子站共用）
+   从 shared.css 抽出的断点规则；组件的桌面结构仍在 shared.css。
+   断点：≤640px、≤480px。 */
+
+/* ---------- ≤640px ---------- */
+/* section 标题行：h2 与右侧 meta 在窄屏容易挤在一起，允许换行并收住行距 */
+@media (max-width: 640px) {
+  .section-header {
+    flex-wrap: wrap;
+    gap: var(--sp-3) var(--sp-5);
+  }
+}
+
+/* ---------- ≤480px ---------- */
+/* 联系方式：标签与值改为上下结构，避免长值（邮箱）被挤断 */
+@media (max-width: 480px) {
+  .contact-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--sp-3);
+  }
+
+  /* 极窄屏上的长邮箱 / 长网址仍可断行，避免撑破容器 */
+  .contact-value {
+    overflow-wrap: anywhere;
+  }
+}

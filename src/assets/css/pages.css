@@ -98,35 +98,7 @@
 /* .split-left-content / .split-left-footer 见 shared.css
    .rules-list / .rule-item / .rule-num / .rule-body 见 shared.css */
 
-@media (max-width: 768px) {
-  .home-hero-split {
-    grid-template-columns: 1fr;
-    min-height: 0;
-  }
-
-  .hero-content {
-    padding: var(--sp-8) var(--sp-6);
-    min-height: 55vh;
-  }
-
-  /* 移动端标题略放大并随屏宽缩放，避免解码动画时横向溢出 */
-  .hero-heading {
-    font-size: min(9vw, 13vh);
-  }
-}
-
-/* 小屏手机：rule-item 改为上下结构，数字字号放大 */
-@media (max-width: 480px) {
-  .rule-item {
-    grid-template-columns: 1fr;
-    gap: var(--sp-3);
-    padding: var(--sp-5) 0;
-  }
-
-  .rule-num {
-    font-size: min(7vw, 7vh);
-  }
-}
+/* 响应式（首页 hero 单列、rule 条目上下结构、404 主数字）见 mobile/pages.css */
 
 /* .hero h1 / .hero .lead 见 shared.css */
 
